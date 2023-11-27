@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -28,7 +29,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ra.academy.controller"})
+@ComponentScan(basePackages = {"ra.academy.controller" ,"ra.academy.service","ra.academy.dao","ra.academy.validate"})
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -113,5 +114,11 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return new JdbcTemplate(dataSource());
     }
 
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSizePerFile(52428800); // 50MB
+        return resolver;
+    }
 
 }
