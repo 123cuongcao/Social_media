@@ -29,4 +29,5 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         filter.setEncoding("utf-8");
         return new Filter[]{filter};
     }
+    // alo
 }
