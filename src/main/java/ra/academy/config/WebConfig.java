@@ -29,7 +29,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ra.academy.controller" ,"ra.academy.service","ra.academy.dao","ra.academy.validate","ra.academy.config"})
+@ComponentScan(basePackages = {"ra.academy.controller", "ra.academy.service", "ra.academy.dao", "ra.academy.validate", "ra.academy.config"})
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -93,11 +93,11 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // cấu hình đường dẫn resource
-        registry.addResourceHandler("/css/**", "/js/**", "/img/**","/scss/**","/fonts/**","/vendor/**" ,"/rtl/**")
-                .addResourceLocations("classpath:static/css/", "classpath:static/js/", "classpath:static/img/","classpath:static/scss/","classpath:static/fonts/","classpath:static/rtl/","classpath:static/vendor/");
+        registry.addResourceHandler("/css/**", "/js/**", "/img/**", "/scss/**", "/fonts/**", "/vendor/**", "/rtl/**")
+                .addResourceLocations("classpath:static/css/", "classpath:static/js/", "classpath:static/img/", "classpath:static/scss/", "classpath:static/fonts/", "classpath:static/rtl/", "classpath:static/vendor/");
     }
 
-//     cấu hình csdl
+    //     cấu hình csdl
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -108,7 +108,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return dataSource;
     }
 
-//     cấu hình jdbc template
+    //     cấu hình jdbc template
     @Bean
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
