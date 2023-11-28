@@ -6,27 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SCC - Login </title>
 
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/feather.css">
+    <title>SCC - Login </title>
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <link rel="stylesheet" href="/css/feather.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/icon" href="/img/Logo/s DOUBLE C..png">
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
 
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/emoji.css">
+
+    <link rel="stylesheet" href="/css/lightbox.css">
 
 </head>
 
-<body class="color-theme-blue">
+<body class="color-theme-blue mont-font">
 
 <div class="preloader"></div>
 
-<div class="main-wrap">
 
-    <div class="nav-header bg-transparent shadow-none border-0">
-        <div class="nav-top w-100">
+<div class="main-wrapper">
+    <!-- navigation top-->
+    <div class="nav-header bg-white shadow-xs border-0">
+        <div class="nav-top  w-100 ">
             <a href="/default">
                 <img class="display1-size me-2 ms-0" style="width: 35px; border-radius: 50px"
                      src="/img/Logo/s%20DOUBLE%20C..png">
+                <span
+                        class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">SdoubleC</span>
             </a>
             <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
                     class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -36,7 +43,7 @@
                     class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
             <button class="nav-menu me-0 ms-2"></button>
 
-            <a href="#"
+            <a href="/login"
                class="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
                data-toggle="modal" data-target="#Modallogin">Login</a>
             <a href="/register"
@@ -50,23 +57,25 @@
 
     <div class="row">
         <div class="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-             style="background-image: url(https://via.placeholder.com/800x950.png);"></div>
+             style="background-image: url(https://i.pinimg.com/564x/e4/81/59/e48159b698faadad63a1632c3649cc5d.jpg);"></div>
         <div class="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
             <div class="card shadow-none border-0 ms-auto me-auto login-card">
                 <div class="card-body rounded-0 text-left">
                     <h2 class="fw-700 display1-size display2-md-size mb-3">Login into <br>your account</h2>
-                    <form>
-
+                    <form th:action="@{/handle-login}" method="post" th:object="${user_login}">
                         <div class="form-group icon-input mb-3">
+
                             <i class="font-sm ti-email text-grey-500 pe-0"></i>
                             <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                   placeholder="Your Email Address">
+                                   placeholder="Your Email Address" th:field="*{userEmail}" >
+                            <p class="form-text text-danger" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}"></p>
                         </div>
                         <div class="form-group icon-input mb-1">
-                            <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                                   placeholder="Password">
+                            <input type="password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
+                                   placeholder="Password" th:field="*{password}">
                             <i class="font-sm ti-lock text-grey-500 pe-0"></i>
-                        </div>
+                            <p class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                            <p class="text-danger" th:if="${login_fail!=null}" th:text="${login_fail}"></p>
                         <div class="form-check text-left mb-3">
                             <input type="checkbox" class="form-check-input mt-2" id="exampleCheck2">
                             <label class="form-check-label font-xsss text-grey-500" for="exampleCheck2">Remember
@@ -75,14 +84,13 @@
                                 Password?</a>
                         </div>
 
-
-                    <div class="col-sm-12 p-0 text-left">
-                        <div class="form-group mb-1"><a href="#"
-                                                        class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</a>
+                        <div class="col-sm-12 p-0 text-left">
+                            <div class="form-group mb-1"><button type="submit"
+                                                            class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button>
+                            </div>
+                            <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a
+                                    href="/register" class="fw-700 ms-1">Register</a></h6>
                         </div>
-                        <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a
-                                href="/register" class="fw-700 ms-1">Register</a></h6>
-                    </div>
                     </form>
                     <div class="col-sm-12 p-0 text-center mt-2">
 

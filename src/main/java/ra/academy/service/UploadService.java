@@ -32,9 +32,11 @@ public class UploadService {
         String uploadPath = servletContext.getRealPath("/uploads");
         // kiểm tra thư mục có tồn tại không
         File file = new File(uploadPath);
+
         if (!file.exists()) {
             file.mkdirs();// tạo thự mục mới
         }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         // upload lên server
         String fileName = dtf.format(LocalDateTime.now()) + fileUpload.getOriginalFilename();
@@ -44,7 +46,6 @@ public class UploadService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     // upload file lên firebase
