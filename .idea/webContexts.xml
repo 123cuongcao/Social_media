@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/component/default-live-stream.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/component" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/component/login.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/component" />
       </map>
     </option>
   </component>
