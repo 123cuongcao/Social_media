@@ -16,7 +16,7 @@ public class LoginValidate implements Validator {
     public void validate(Object target, Errors errors) {
         UserLogin userLogin = (UserLogin) target;
         if(!userLogin.getUserEmail().matches("^(.+)@(\\S+)$")){
-            errors.rejectValue("username","form-login.email.invalid");
+            errors.rejectValue("userEmail","form-login.email.invalid");
         }
     }
 }

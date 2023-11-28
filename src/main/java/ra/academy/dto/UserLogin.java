@@ -1,11 +1,13 @@
 package ra.academy.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class UserLogin {
-    @NotBlank
+    @NotBlank(message = "Not empty")
+    @Pattern(regexp = "^(.+)@(\\S+)$",message = "Email is invalid !")
     private String userEmail ;
-    @NotBlank
+    @NotBlank(message = "Not empty")
     private String password;
 
     public UserLogin(String userEmail, String password) {

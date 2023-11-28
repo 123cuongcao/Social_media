@@ -1,14 +1,16 @@
 package ra.academy.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IUserDao;
 import ra.academy.model.User;
 
 import java.util.List;
+
 @Component
 public class UserDao implements IUserDao {
-
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -32,22 +34,22 @@ public class UserDao implements IUserDao {
             // thêm mới
             sql = "call SaveUser(?,?,?,?,?,?)";
             return jdbcTemplate.update(sql, user.getFullName(), user.getEmail(), user.getAvatarUrl(), user.getDateOfBirth(),
-                    user.getPhoneNumber(),user.getPassword() );
+                    user.getPhoneNumber(), user.getPassword());
         } else {
             sql = "call EditUser(?,?,?,?,?,?)";
-            return jdbcTemplate.update(sql, user.getUserId(),user.getFullName(), user.getEmail(), user.getAvatarUrl(),
+            return jdbcTemplate.update(sql, user.getUserId(), user.getFullName(), user.getEmail(), user.getAvatarUrl(),
                     user.getDateOfBirth(), user.getPhoneNumber());
         }
     }
 
     @Override
     public User findByUserEmail(String email) {
-        String sql = "select * from account where email = '"+email+"'";
-        return jdbcTemplate.query(sql, rs -> {
+        String sql = "call findByEmail(?)";
+        return jdbcTemplate.query(sql, new Object[]{email},rs -> {
             User u = null;
-            if(rs.next()){
+            if (rs.next()) {
                 u = new User();
-                u.setUserId(rs.getLong("id"));
+                u.setUserId(rs.getLong("user_id"));
                 u.setFullName(rs.getString("full_name"));
                 u.setEmail(rs.getString("email"));
                 u.setAvatarUrl(rs.getString("avatar_url"));
@@ -56,7 +58,7 @@ public class UserDao implements IUserDao {
                 u.setCreatedAt(rs.getDate("created_at"));
                 u.setUpdatedAt(rs.getDate("updated_at"));
                 u.setPhoneNumber(rs.getString("phone_number"));
-                u.setRole(rs.getBoolean("roll"));
+                u.setRole(rs.getBoolean("role"));
                 u.setPassword(rs.getString("password"));
             }
             return u;
