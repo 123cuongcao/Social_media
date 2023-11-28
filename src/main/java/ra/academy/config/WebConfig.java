@@ -93,8 +93,8 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // cấu hình đường dẫn resource
-        registry.addResourceHandler("/css/**", "/js/**", "/img/**", "/scss/**", "/fonts/**", "/vendor/**", "/rtl/**")
-                .addResourceLocations("classpath:static/css/", "classpath:static/js/", "classpath:static/img/", "classpath:static/scss/", "classpath:static/fonts/", "classpath:static/rtl/", "classpath:static/vendor/");
+        registry.addResourceHandler("/css/**", "/js/**", "/img/**", "/scss/**", "/fonts/**", "/vendor/**", "/rtl/**","/img/Logo/**")
+                .addResourceLocations("classpath:static/css/", "classpath:static/js/", "classpath:static/img/", "classpath:static/scss/", "classpath:static/fonts/", "classpath:static/rtl/", "classpath:static/vendor/","classpath:static/img/Logo/");
     }
 
     //     cấu hình csdl

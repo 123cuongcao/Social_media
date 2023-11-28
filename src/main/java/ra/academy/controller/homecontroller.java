@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class homecontroller {
     @RequestMapping("/")
     public String login(){
-        return "component/default";
+        return "component/login";
     }
 }
