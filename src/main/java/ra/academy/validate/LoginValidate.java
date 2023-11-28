@@ -15,9 +15,16 @@ public class LoginValidate implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UserLogin userLogin = (UserLogin) target;
-        if(!userLogin.getUserEmail().matches("^(.+)@(\\S+)$")){
+         if(userLogin.getUserEmail().isEmpty()) {
+             errors.rejectValue("userEmail", "form-login.email.empty");
+         }else if(!userLogin.getUserEmail().matches("^(.+)@(\\S+)$")){
             errors.rejectValue("userEmail","form-login.email.invalid");
         }
+
+         if (userLogin.getPassword().isEmpty()) {
+            errors.rejectValue("password","form-login.password.empty");
+        }
+
     }
 }
 

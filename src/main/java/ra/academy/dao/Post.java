@@ -6,8 +6,4 @@ public class Post {
     private Long id ;
     private static Topic topic = Topic.FASHION;
 
-    public static void main(String[] args) {
-
-    }
-
 }

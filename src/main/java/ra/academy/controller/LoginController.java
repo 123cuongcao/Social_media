@@ -36,7 +36,6 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "component/login";
         }
-
         User user = userService.login(userLogin);
         if (user == null) {
             model.addAttribute("login_fail", "Username or password is inccorect");
