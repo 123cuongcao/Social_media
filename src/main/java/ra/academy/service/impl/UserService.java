@@ -9,20 +9,29 @@ import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.User;
 import ra.academy.service.IUserService;
+import ra.academy.service.UploadService;
+
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
     @Autowired
     private IUserDao userDao;
 
+    @Autowired
+    private UploadService uploadService;
+
     @Override
-    public void save(UserRegister userRegister) {
-        if (userRegister.getAvatarUrl() == null) {
-            userRegister.setAvatarUrl("");
+    public void register(UserRegister userRegister) {
+
+        String imageUrl = null;
+        if (!userRegister.getAvatarUrl().isEmpty()) {
+            // xử lí upload file
+            imageUrl = uploadService.uploadFile(userRegister.getAvatarUrl());
         }
         User user = new User(
                 userRegister.getFullName(), userRegister.getEmail(),
-                userRegister.getPhoneNumber(), userRegister.getAvatarUrl(),
+                userRegister.getPhoneNumber(), imageUrl,
                 userRegister.getDateOfBirth(),
                 BCrypt.hashpw(userRegister.getPassword(), BCrypt.gensalt(12))
         );
@@ -36,5 +45,25 @@ public class UserService implements IUserService {
             return account;
         }
         return null;
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userDao.findAll();
+    }
+
+    @Override
+    public boolean checkExistByEmail(String email) {
+        return findAllUser().stream().anyMatch(acc -> acc.getEmail().equalsIgnoreCase(email));
+    }
+
+    @Override
+    public boolean checkExistByPhone(String phone) {
+        return findAllUser().stream().anyMatch(acc -> acc.getEmail().equalsIgnoreCase(phone));
+    }
+
+    @Override
+    public void save(UserRegister userRegister) {
+
     }
 }

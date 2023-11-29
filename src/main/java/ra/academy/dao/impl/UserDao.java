@@ -19,7 +19,24 @@ public class UserDao implements IUserDao {
 
     @Override
     public List<User> findAll() {
-        return null;
+        String sql = "call findAllUser()";
+        List<User> list = jdbcTemplate.query(sql,
+                (rs, rowNum) -> {
+                    User u = new User();
+                    u.setUserId(rs.getLong("user_id"));
+                    u.setFullName(rs.getString("full_name"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPhoneNumber(rs.getString("phone_number"));
+                    u.setEmail(rs.getString("email"));
+                    u.setAvatarUrl(rs.getString("avatar_url"));
+                    u.setStatus(rs.getBoolean("status"));
+                    u.setRole(rs.getBoolean("role"));
+                    u.setUpdatedAt(rs.getDate("updated_at"));
+                    u.setPassword(rs.getString("password"));
+                    u.setCreatedAt(rs.getDate("created_at"));
+                    return u;
+                });
+        return list;
     }
 
     @Override
