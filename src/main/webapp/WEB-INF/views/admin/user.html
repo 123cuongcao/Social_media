@@ -267,25 +267,30 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">User Managerment</h3>
-                        <nav class="navbar navbar-expand-lg bg-light">
+                        <nav class="navbar navbar-expand-lg bg-light d-flex">
                             <div class="container-fluid">
-                                <div>
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#">HTML</a></li>
-                                            <li><a href="#">CSS</a></li>
-                                            <li><a href="#">JavaScript</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">About Us</a></li>
-                                        </ul>
-                                    </div>
+                                <div class="d-flex">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Sort By Name</option>
+                                        <option value="1">A -> Z</option>
+                                        <option value="2">Z -> A</option>
+                                    </select>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Created Date</option>
+                                        <option value="1">Newest</option>
+                                        <option value="2">Oldest</option>
+                                    </select>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Status</option>
+                                        <option value="true">Actice</option>
+                                        <option value="false">Banned</option>
+                                    </select>
                                 </div>
+
 
                                 <form class="d-flex" role="search">
                                     <input class="form-control me-2 fst-italic" type="search"
-                                           placeholder="Enter user's name... "
+                                           placeholder="Enter user's email... "
                                            aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
