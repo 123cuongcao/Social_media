@@ -50,9 +50,11 @@ public class RegisterValidate implements Validator {
             errors.rejectValue("phoneNumber", "form-register.phone.length");
         } else if (userRegister.getPhoneNumber().isEmpty()) {
             errors.rejectValue("phoneNumber", "form-register.phone.empty");
+        } else if (userService.checkExistByPhone(userRegister.getPhoneNumber())) {
+            errors.rejectValue("phoneNumber","form-register.phone.exist");
         }
         if (userRegister.getDateOfBirth() == null) {
-            errors.rejectValue("birthday", "form-register.birthday.empty");
+            errors.rejectValue("dateOfBirth", "form-register.birthday.empty");
         }
 
     }

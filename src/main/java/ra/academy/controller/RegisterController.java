@@ -38,5 +38,6 @@ public class RegisterController {
 
         userService.register(userRegister);
         return "component/register";
+
     }
 }

@@ -27,7 +27,7 @@ public class UserDao implements IUserDao {
                     u.setFullName(rs.getString("full_name"));
                     u.setEmail(rs.getString("email"));
                     u.setPhoneNumber(rs.getString("phone_number"));
-                    u.setEmail(rs.getString("email"));
+                    u.setDateOfBirth(rs.getDate("date_of_birth"));
                     u.setAvatarUrl(rs.getString("avatar_url"));
                     u.setStatus(rs.getBoolean("status"));
                     u.setRole(rs.getBoolean("role"));
@@ -53,12 +53,17 @@ public class UserDao implements IUserDao {
             return jdbcTemplate.update(sql, user.getFullName(), user.getEmail(), user.getAvatarUrl(), user.getDateOfBirth(),
                     user.getPhoneNumber(), user.getPassword());
         } else {
-            sql = "call EditUser(?,?,?,?,?,?)";
-            return jdbcTemplate.update(sql, user.getUserId(), user.getFullName(), user.getEmail(), user.getAvatarUrl(),
+            sql = "call EditUser(?,?,?,?,?)";
+            return jdbcTemplate.update(sql, user.getFullName(), user.getEmail(), user.getAvatarUrl(),
                     user.getDateOfBirth(), user.getPhoneNumber());
         }
     }
 
+    public int edit(User user){
+           String sql = "call EditUser(?,?,?,?,?)";
+            return jdbcTemplate.update(sql, user.getFullName(), user.getEmail(), user.getAvatarUrl(),
+                    user.getDateOfBirth(), user.getPhoneNumber());
+    }
     @Override
     public User findByUserEmail(String email) {
         String sql = "call findByEmail(?)";
