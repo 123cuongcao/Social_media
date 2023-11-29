@@ -12404,7 +12404,7 @@ strong,
 }
 
 .fw-600 {
-  font-weight: 600 !important;
+  font-weight: 500 !important;
 }
 
 .fw-700 {
@@ -14713,6 +14713,9 @@ body:not(.theme-full) .main-content .middle-sidebar-bottom.header-padding {
   border: 2px #eee solid;
   border-radius: 7px;
 }
+.avatarlh {
+  line-height: 40px;
+}
 .form-group .style2-input::-webkit-input-placeholder {
   font-size: 14px;
   font-weight: 600;
@@ -16562,3 +16565,5 @@ select.sort {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+

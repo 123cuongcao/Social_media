@@ -13,11 +13,12 @@ public class User {
     private Date updatedAt;
     private boolean status;
     private boolean role;
+    private String password;
 
     public User() {
     }
 
-    public User(Long userId, String fullName, String email, String phoneNumber, String avatarUrl, Date dateOfBirth, Date createdAt, Date updatedAt, boolean status, boolean role) {
+    public User(Long userId, String fullName, String email, String phoneNumber, String avatarUrl, Date dateOfBirth, Date createdAt, Date updatedAt, boolean status, boolean role, String password) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
@@ -28,6 +29,16 @@ public class User {
         this.updatedAt = updatedAt;
         this.status = status;
         this.role = role;
+        this.password = password;
+    }
+
+    public User(String fullName, String email, String phoneNumber, String avatarUrl, Date dateOfBirth, String password) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.avatarUrl = avatarUrl;
+        this.dateOfBirth = dateOfBirth;
+        this.password = password;
     }
 
     public Long getUserId() {
@@ -108,5 +119,13 @@ public class User {
 
     public void setRole(boolean role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

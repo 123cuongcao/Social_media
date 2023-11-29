@@ -6,5 +6,4 @@ public class Post {
     private Long id ;
     private static Topic topic = Topic.FASHION;
 
-
 }

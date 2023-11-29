@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UploadService {
@@ -32,9 +33,11 @@ public class UploadService {
         String uploadPath = servletContext.getRealPath("/uploads");
         // kiểm tra thư mục có tồn tại không
         File file = new File(uploadPath);
+
         if (!file.exists()) {
             file.mkdirs();// tạo thự mục mới
         }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         // upload lên server
         String fileName = dtf.format(LocalDateTime.now()) + fileUpload.getOriginalFilename();
@@ -44,7 +47,6 @@ public class UploadService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     // upload file lên firebase
@@ -65,5 +67,31 @@ public class UploadService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<String> uploadFileToServer(List<MultipartFile> list){
+        // tạo đường dẫn đến thư mục uploads
+        String uploadPath = servletContext.getRealPath("/uploads");
+        // kiểm tra thư mục có tồn tại không
+        File file = new File(uploadPath);
+        if (!file.exists()) {
+            file.mkdirs();// tạo thự mục mới
+        }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        // upload lên server
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile f: list) {
+            String fileName = dtf.format(LocalDateTime.now())+f.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(f.getBytes(),new File(uploadPath+File.separator+fileName));
+                imageUrls.add(uploadPath+File.separator+fileName);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        // upload lên cloud firebase
+        return  imageUrls.stream()
+                .map(this::uploadFileFromServerToFirebase)
+                .collect(Collectors.toList());
     }
 }
