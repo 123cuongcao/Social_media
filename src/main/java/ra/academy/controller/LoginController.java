@@ -25,13 +25,13 @@ public class LoginController {
 
 
     @RequestMapping("/")
-    public String login(Model model){
+    public String login(Model model) {
         model.addAttribute("user_login", new UserLogin());
         return "component/login";
     }
 
     @RequestMapping(value = "/handle-login", method = RequestMethod.POST)
-    public String doLogin(HttpSession session, @ModelAttribute("user_login")  @Valid UserLogin userLogin, Model model, BindingResult bindingResult) {
+    public String doLogin(HttpSession session, @ModelAttribute("user_login") @Valid UserLogin userLogin, Model model, BindingResult bindingResult) {
         loginValidate.validate(userLogin, bindingResult);
         if (bindingResult.hasErrors()) {
             return "component/login";
@@ -41,8 +41,9 @@ public class LoginController {
             model.addAttribute("login_fail", "Username or password is inccorect");
             return "component/login";
         }
-
         session.setAttribute("user_login", userLogin);
         return "component/default";
     }
+
+
 }
