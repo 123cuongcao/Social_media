@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ra.academy.dao.IUserDao;
+import ra.academy.dto.UserEditInfor;
 import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.User;
@@ -20,6 +21,29 @@ public class UserService implements IUserService {
 
     @Autowired
     private UploadService uploadService;
+
+    @Override
+    public void edit(UserEditInfor userEditInfor) {
+        String imageUrl = null;
+        if (!userEditInfor.getAvatarUrl().isEmpty()) {
+            // xử lí upload file
+            imageUrl = uploadService.uploadFile(userEditInfor.getAvatarUrl());
+        }
+        User user = new User(
+                 userEditInfor.getFullName(), userEditInfor.getEmail(),
+                userEditInfor.getPhoneNumber(), imageUrl,
+                userEditInfor.getDateOfBirth());
+        userDao.edit(user);
+    }
+
+    @Override
+    public UserEditInfor findUserByEmailToEdit(String email) {
+        User user = findAllUser().stream().filter(u->u.getEmail().equals(email)).findFirst().orElse(null);
+
+        return new UserEditInfor(
+                user.getFullName(),user.getEmail(),user.getPhoneNumber(),user.getDateOfBirth(),user.getAvatarUrl()
+        );
+    }
 
     @Override
     public void register(UserRegister userRegister) {

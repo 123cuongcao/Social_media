@@ -41,6 +41,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String fullName, String email, String phoneNumber, String avatarUrl, Date dateOfBirth) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.avatarUrl = avatarUrl;
+        this.dateOfBirth = dateOfBirth;
+
+    }
     public Long getUserId() {
         return userId;
     }

@@ -1,5 +1,6 @@
 package ra.academy.service;
 
+import ra.academy.dto.UserEditInfor;
 import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.User;
@@ -19,6 +20,8 @@ public interface IUserService {
 
     void register(UserRegister formRegister);
 
+    void edit(UserEditInfor userEditInfor);
+    UserEditInfor findUserByEmailToEdit(String email);
 
 
 }
