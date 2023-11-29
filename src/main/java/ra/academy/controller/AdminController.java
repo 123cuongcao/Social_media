@@ -22,5 +22,9 @@ public class AdminController {
     public String user() {
         return "admin/user";
     }
+    @RequestMapping("/addirect")
+    public String direct() {
+        return "component/default";
+    }
 
 }

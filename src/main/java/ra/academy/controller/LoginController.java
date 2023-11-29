@@ -43,6 +43,7 @@ public class LoginController {
         }
         session.setAttribute("user_login", userLogin);
         return "component/default";
+
     }
 
 

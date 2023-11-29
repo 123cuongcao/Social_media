@@ -25,7 +25,7 @@ public class RegisterController {
 
     @RequestMapping("")
     public String doRegister(Model model) {
-        model.addAttribute("user_register",new UserRegister());
+        model.addAttribute("user_register", new UserRegister());
         return "component/register";
     }
 
@@ -37,6 +37,7 @@ public class RegisterController {
         }
 
         userService.register(userRegister);
-        return "component/register";
+        return "component/login";
     }
+
 }
