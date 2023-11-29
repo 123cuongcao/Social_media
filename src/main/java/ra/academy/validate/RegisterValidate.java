@@ -52,7 +52,7 @@ public class RegisterValidate implements Validator {
             errors.rejectValue("phoneNumber", "form-register.phone.empty");
         }
         if (userRegister.getDateOfBirth() == null) {
-            errors.rejectValue("birthday", "form-register.birthday.empty");
+            errors.rejectValue("dateOfBirth", "form-register.birthday.empty");
         }
 
     }

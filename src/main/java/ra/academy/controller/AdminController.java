@@ -10,18 +10,22 @@ public class AdminController {
     public String index() {
         return "admin/index";
     }
-    @RequestMapping("/category")
-    public String catalog() {
-        return "admin/category";
+
+    @RequestMapping("/post")
+    public String post() {
+        return "admin/post";
     }
-    @RequestMapping("/product")
+
+    @RequestMapping("/ads")
     public String product() {
-        return "admin/product";
+        return "admin/ads";
     }
+
     @RequestMapping("/user")
     public String user() {
         return "admin/user";
     }
+
     @RequestMapping("/addirect")
     public String direct() {
         return "component/default";

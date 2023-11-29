@@ -150,3 +150,18 @@ values ( u_full_name, u_email, u_avatar_url, u_date_of_birth
 end //
 
 delimiter ;
+
+
+delimiter //
+create procedure findAllUser()
+begin
+select * from user;
+end //
+delimiter ;
+
+    delimiter //
+create procedure findAllUser()
+begin
+select * from user;
+end //
+delimiter ;
