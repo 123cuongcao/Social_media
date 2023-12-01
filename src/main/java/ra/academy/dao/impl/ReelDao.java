@@ -54,8 +54,7 @@ public class ReelDao implements IReelDao {
     public User findByUserEmail(String email) {
         String sql = "call findByEmail(?)";
 
-    };
-    public User findByUserEmail(String userName) {
         return null;
-    }
+    };
+
 }

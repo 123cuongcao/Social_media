@@ -12,7 +12,7 @@ public class HomePageController {
         return "component/default-settings";
     }
 
-    @RequestMapping(value = "/poststory", method = RequestMethod.POST)
+    @RequestMapping(value = "/poststory")
     public String addstory() {
         return "component/postStory";
     }
