@@ -2,14 +2,12 @@ package ra.academy.service.impl;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ra.academy.dao.IUserDao;
 import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.User;
 import ra.academy.service.IUserService;
-import ra.academy.service.UploadService;
 
 import java.util.List;
 

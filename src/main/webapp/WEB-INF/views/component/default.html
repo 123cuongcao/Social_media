@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/themify-icons.css">
     <link rel="stylesheet" href="/css/feather.css">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/icon" href="/img/Logo/s DOUBLE C..png">
+    <link rel="icon" type="image/icon" href="/img/Logo/z4927355446925_f26f593ade54a16fa22d0a641db54722.png">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
@@ -52,9 +52,9 @@
         </form>
         <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
                 class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
-        <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
+        <a href="/default-storie" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
                 class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
-        <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
+        <a href="/default-video" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
                 class="feather-video font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
         <a href="default-group.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
                 class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
@@ -81,7 +81,8 @@
             </div>
 
             <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                <img src="https://via.placeholder.com/50x50.png" alt="user" class="w40 position-absolute left-0">
+                <img src="https://i.pinimg.com/564x/14/bc/27/14bc2759b4ba8a50857b3374cd6ee3d0.jpg" alt="user"
+                     class="w40 position-absolute left-0">
                 <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Surfiya Zakir <span
                         class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 1 min</span></h5>
                 <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
@@ -199,10 +200,10 @@
 
             </div>
         </div>
+        <a href="/component/defautl/setting" class="p-0 ms-3 menu-icon ">
+            <img width="50" height="50" th:src="${image}" alt="user" class="w50 mt--1 rounded-circle"/>
+        </a>
 
-
-        <a href="default-settings.html" class="p-0 ms-3 menu-icon"><img src="https://via.placeholder.com/50x50.png"
-                                                                        alt="user" class="w40 mt--1"></a>
 
     </div>
     <!-- navigation top -->
@@ -249,8 +250,8 @@
                     <div class="nav-caption fw-600 font-xssss text-grey-500"><span></span> Account</div>
                     <ul class="mb-1">
                         <li class="logo d-none d-xl-block d-lg-block"></li>
-                        <li><a href="default-settings.html" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i
-                                class="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></a></li>
+                        <li><a href="/component/defautl/setting"  class="nav-content-bttn open-font h-auto pt-2 pb-2"><i
+                                    class="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></a></li>
                         <li><a href="default-analytics.html" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i
                                 class="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></a></li>
                         <li><a href="default-message.html" class="nav-content-bttn open-font h-auto pt-2 pb-2"><i
@@ -302,9 +303,13 @@
                         <div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
                             <div class="owl-carousel category-card owl-theme overflow-hidden nav-none">
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
+                                    <div class="card w125 h200 d-block border-0 shadow-none rounded-xl bg-dark overflow-hidden mb-3 mt-3">
+                                        <img th:src="${image}"
+                                             width="100%" height="100%"
+                                             alt="image"
+                                             class="float-right p-0 bg-white w-200 h-300 shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                            <a href="#" data-target="#Modalstries" data-toggle="modal">
+                                            <a href="/component/defautl/poststory" data-target="#Modalstries" data-toggle="modal">
                                                 <span class="btn-round-lg bg-white"><i class="feather-plus font-lg"></i></span>
                                                 <div class="clearfix"></div>
                                                 <h4 class="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
@@ -315,7 +320,7 @@
                                 </div>
                                 <div class="item">
                                     <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                         style="background-image: url(https://i.pinimg.com/564x/14/bc/27/14bc2759b4ba8a50857b3374cd6ee3d0.jpg);">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
@@ -330,12 +335,16 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3">
+                                        <img src="https://i.pinimg.com/564x/94/97/c2/9497c28480739e8f0154b35db9e97669.jpg"
+                                             width="200" height="300"
+                                             alt="image"
+                                             class="float-right p-0 bg-white shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                                    <img src="https://i.pinimg.com/564x/cd/b6/2f/cdb62f5f71f676a8f6e8d01cd6eef2ae.jpg"
+                                                         alt="image"
                                                          class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
                                                 </figure>
                                                 <div class="clearfix"></div>
@@ -346,12 +355,16 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                    <div class="card w125 h200 d-block border-0 shadow-xss  bg-gradiant-bottom overflow-hidden mb-3 mt-3">
+                                        <img src="https://i.pinimg.com/564x/6d/8b/56/6d8b5686675cf5aa4b89e323c2fcdde1.jpg"
+                                             width="200" height="300"
+                                             alt="image"
+                                             class="float-right p-0 bg-white shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                                    <img src="https://i.pinimg.com/564x/62/d9/e8/62d9e85d0aa869a354020b82b734081a.jpg"
+                                                         alt="image"
                                                          class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
                                                 </figure>
                                                 <div class="clearfix"></div>
@@ -362,12 +375,16 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3">
+                                        <img src="https://i.pinimg.com/564x/2d/68/f0/2d68f044de2831fc2106afe7b7fb46af.jpg"
+                                             width="200" height="300"
+                                             alt="image"
+                                             class="float-right p-0 bg-white shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                                    <img src="https://i.pinimg.com/564x/db/02/c2/db02c2cdc0f296fa8871255fc9693067.jpg"
+                                                         alt="image"
                                                          class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
                                                 </figure>
                                                 <div class="clearfix"></div>
@@ -378,12 +395,16 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3">
+                                        <img src="https://i.pinimg.com/564x/55/62/a4/5562a423e73734124aaa2af47a06b718.jpg"
+                                             width="200" height="300"
+                                             alt="image"
+                                             class="float-right p-0 bg-white shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                                    <img src="https://i.pinimg.com/564x/97/22/00/972200a37ef2ebfd7b16f54a6a4b99b4.jpg"
+                                                         alt="image"
                                                          class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
                                                 </figure>
                                                 <div class="clearfix"></div>
@@ -394,12 +415,16 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3"
-                                         style="background-image: url(https://via.placeholder.com/200x300.png);">
+                                    <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl bg-gradiant-bottom overflow-hidden mb-3 mt-3">
+                                        <img src="https://i.pinimg.com/564x/dd/51/3d/dd513d8ffc7b133f4dedf9a86be7002a.jpg"
+                                             width="200" height="300"
+                                             alt="image"
+                                             class="float-right p-0 bg-white shadow-xss">
                                         <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                             <a href="#" data-target="#Modalstries" data-toggle="modal">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                                    <img src="https://i.pinimg.com/564x/a8/c3/6d/a8c36d084570b0dce90e5779e6026d40.jpg"
+                                                         alt="image"
                                                          class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
                                                 </figure>
                                                 <div class="clearfix"></div>
@@ -420,9 +445,12 @@
                                         class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create
                                     Post</a>
                             </div>
+
                             <div class="card-body p-0 mt-3 position-relative">
                                 <figure class="avatar position-absolute ms-2 mt-1 top-5"><img
-                                        src="" alt="image"
+                                        width="30" height="30"
+                                        th:src="${image}"
+                                        alt="image"
                                         class="shadow-sm rounded-circle w30"></figure>
                                 <textarea name="message"
                                           class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
@@ -431,13 +459,15 @@
                             <div class="card-body d-flex p-0 mt-0">
                                 <a href="#"
                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-danger feather-video me-2"></i><span class="d-none-xs">Live Video</span></a>
+                                        class="font-md text-danger ti-user me-2"></i><span
+                                        class="d-none-xs">Friends</span></a>
                                 <a href="#"
                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-success feather-image me-2"></i><span class="d-none-xs">Photo/Video</span></a>
+                                        class="font-md text-success feather-image me-2"></i><span
+                                        class="d-none-xs">Photo/Video</span></a>
                                 <a href="#"
                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-warning feather-camera me-2"></i><span class="d-none-xs">Feeling/Activity</span></a>
+                                        class="font-md text-warning ti-comments-smiley me-2"></i><span class="d-none-xs">Feeling/Activity</span></a>
                                 <a href="#" class="ms-auto" id="dropdownMenu4" data-bs-toggle="dropdown"
                                    aria-expanded="false"><i
                                         class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
@@ -474,8 +504,11 @@
 
                         <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                             <div class="card-body p-0 d-flex">
-                                <figure class="avatar me-3"><img src="https://via.placeholder.com/50x50.png" alt="image"
-                                                                 class="shadow-sm rounded-circle w45"></figure>
+                                <figure class="avatar me-3"><img
+                                        width="50" height="50"
+                                        src="https://i.pinimg.com/564x/86/10/6e/86106eb6003c51cce97219ea4841b453.jpg"
+                                        alt="image"
+                                        class="shadow-sm rounded-circle w50"></figure>
                                 <h4 class="fw-700 text-grey-900 font-xssss mt-1">Surfiya Zakir <span
                                         class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">3 hour ago</span></h4>
                                 <a href="#" class="ms-auto" id="dropdownMenu2" data-bs-toggle="dropdown"
@@ -529,7 +562,8 @@
                                             href="https://via.placeholder.com/1200x800.png" data-lightbox="roadtrip"
                                             class="position-relative d-block"><img
                                             src="https://via.placeholder.com/1200x800.png" class="rounded-3 w-100"
-                                            alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a>
+                                            alt="image"><span
+                                            class="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -957,7 +991,8 @@
                                                                           data-lightbox="roadtri"
                                                                           class="position-relative d-block"><img
                                             src="https://via.placeholder.com/300x200.png" class="rounded-3 w-100"
-                                            alt="image"><span class="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a>
+                                            alt="image"><span
+                                            class="img-count font-sm text-white ls-3 fw-600"><b>+2</b></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -1566,7 +1601,7 @@
         <a href="default-video.html" class="nav-content-bttn"><i class="feather-package"></i></a>
         <a href="default-live-stream.html" class="nav-content-bttn" data-tab="chats"><i class="feather-layout"></i></a>
         <a href="shop-2.html" class="nav-content-bttn"><i class="feather-layers"></i></a>
-        <a href="default-settings.html" class="nav-content-bttn"><img src="https://via.placeholder.com/50x50.png"
+        <a href="/component/defautl/setting" class="nav-content-bttn"><img src="https://via.placeholder.com/50x50.png"
                                                                       alt="user" class="w30 shadow-xss"></a>
     </div>
 

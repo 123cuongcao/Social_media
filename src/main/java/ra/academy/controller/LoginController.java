@@ -24,7 +24,7 @@ public class LoginController {
     private IUserService userService;
 
 
-    @RequestMapping("/")
+    @RequestMapping
     public String login(Model model) {
         model.addAttribute("user_login", new UserLogin());
         return "component/login";
@@ -42,6 +42,8 @@ public class LoginController {
             return "component/login";
         }
         session.setAttribute("user_login", userLogin);
+        User user1 = userService.findAllUser().stream().filter(u->u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+        model.addAttribute("image",user1.getAvatarUrl());
         return "component/default";
 
     }

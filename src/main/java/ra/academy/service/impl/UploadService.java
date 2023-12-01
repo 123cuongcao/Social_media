@@ -1,4 +1,4 @@
-package ra.academy.service;
+package ra.academy.service.impl;
 
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
