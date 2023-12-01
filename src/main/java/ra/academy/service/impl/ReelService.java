@@ -1,5 +1,7 @@
 package ra.academy.service.impl;
 
-public class ReelService {
+import ra.academy.service.IReelService;
+
+public class ReelService implements IReelService {
 
 }

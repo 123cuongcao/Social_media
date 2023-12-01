@@ -6,7 +6,21 @@ public class Reel {
     private Long reelId;
     private Long userId;
     private String content;
+    public String upload_url;
     private Date postedAt;
+
+    public String getUpload_url() {
+        return upload_url;
+    }
+
+    public void setUpload_url(String upload_url) {
+        this.upload_url = upload_url;
+    }
+
+    public Reel(String content) {
+        this.content = content;
+    }
+
     private Privacy privacy;
     private boolean status;
 
