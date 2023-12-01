@@ -86,4 +86,9 @@ public class UserDao implements IUserDao {
             return u;
         });
     }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
 }

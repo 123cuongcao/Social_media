@@ -19,7 +19,7 @@ create table Post (
                       post_id bigint PRIMARY KEY auto_increment,
                       user_id bigint,
                       foreign key (user_id) references User(user_id),
-                      topic varchar(100),
+                      topicName varchar(100),
                       content text,
                       post_time datetime,
                       tag_contact bigint,
@@ -37,7 +37,7 @@ create table Post_tag_user(
 create table Post_topic(
                            post_id bigint,
                            foreign key (post_id) references Post(user_id),
-                           topic ENUM('PET', 'TRAVEL', 'MOVIE', 'GAME', 'MUSIC','FASHION')
+                           topicName ENUM('PET', 'TRAVEL', 'MOVIE', 'GAME', 'MUSIC','FASHION')
 );
 
 CREATE TABLE Like_Post (

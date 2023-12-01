@@ -1,15 +1,25 @@
 package ra.academy.model;
 
 public class FileUrl {
+    private Long urlId;
     private Long postId;
     private String fileUrl;
 
     public FileUrl() {
     }
 
-    public FileUrl(Long postId, String fileUrl) {
+    public FileUrl(Long urlId, Long postId, String fileUrl) {
+        this.urlId = urlId;
         this.postId = postId;
         this.fileUrl = fileUrl;
+    }
+
+    public Long getUrlId() {
+        return urlId;
+    }
+
+    public void setUrlId(Long urlId) {
+        this.urlId = urlId;
     }
 
     public Long getPostId() {

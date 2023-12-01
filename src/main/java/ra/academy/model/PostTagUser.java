@@ -1,15 +1,33 @@
 package ra.academy.model;
 
 public class PostTagUser {
+    private Long tagId;
+    private Long userId;
     private Long postId;
-    private Long taggedUserId;
 
     public PostTagUser() {
     }
 
-    public PostTagUser(Long postId, Long taggedUserId) {
+    public PostTagUser(Long tagId, Long userId, Long postId) {
+        this.tagId = tagId;
+        this.userId = userId;
         this.postId = postId;
-        this.taggedUserId = taggedUserId;
+    }
+
+    public Long getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getPostId() {
@@ -18,13 +36,5 @@ public class PostTagUser {
 
     public void setPostId(Long postId) {
         this.postId = postId;
-    }
-
-    public Long getTaggedUserId() {
-        return taggedUserId;
-    }
-
-    public void setTaggedUserId(Long taggedUserId) {
-        this.taggedUserId = taggedUserId;
     }
 }

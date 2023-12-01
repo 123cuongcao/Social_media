@@ -51,6 +51,11 @@ public class ReelDao implements IReelDao {
     }
 
     @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
     public User findByUserEmail(String email) {
         String sql = "call findByEmail(?)";
 
