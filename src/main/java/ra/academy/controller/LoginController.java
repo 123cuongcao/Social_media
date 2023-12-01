@@ -41,11 +41,16 @@ public class LoginController {
             model.addAttribute("login_fail", "Username or password is inccorect");
             return "component/login";
         }
-
+        if (user.isRole()) {
+            session.setAttribute("user_login", userLogin);
+            return "redirect:/admin/user";
+        }
         session.setAttribute("user_login", userLogin);
         return "component/default";
 
     }
+
+
 
 
 }

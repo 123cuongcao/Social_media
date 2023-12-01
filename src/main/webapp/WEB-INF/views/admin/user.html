@@ -13,7 +13,8 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="../demo2/src/main/resources/static/img/icons/icon-48x48.png"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
@@ -239,9 +240,10 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="../demo2/src/main/resources/static/img/avatars/avatar.jpg"
+
+                            <span class="text-dark" th:text="${user.getFullName()}"> </span>
+                            <img th:src="${user.getAvatarUrl()}"
                                  class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Chris Hung</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="#"><i class="align-middle me-1"
@@ -269,29 +271,27 @@
                         <h3 class="card-title">User Managerment</h3>
                         <nav class="navbar navbar-expand-lg bg-light d-flex">
                             <div class="container-fluid">
-                                <div class="d-flex">
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Sort By Name</option>
-                                        <option value="1">A -> Z</option>
-                                        <option value="2">Z -> A</option>
-                                    </select>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Created Date</option>
-                                        <option value="1">Newest</option>
-                                        <option value="2">Oldest</option>
-                                    </select>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Status</option>
-                                        <option value="true">Actice</option>
-                                        <option value="false">Banned</option>
-                                    </select>
-                                </div>
-
-
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2 fst-italic" type="search"
+<!--                                <form th:action="@{/admin/doSort}" method="post" >-->
+<!--                                    <div class="d-flex">-->
+<!--                                        <select class="form-select"  name="SBY"  aria-label="Default select example">-->
+<!--                                            <option selected value="ESC">A -> Z</option>-->
+<!--                                            <option value="DESC">Z -> A</option>-->
+<!--                                        </select>-->
+<!--                                        <select class="form-select" name="SBCD" aria-label="Default select example">-->
+<!--                                            <option selected value="DESC">Newest</option>-->
+<!--                                            <option value="ESC">Oldest</option>-->
+<!--                                        </select>-->
+<!--                                        <select class="form-select" name="SBS" aria-label="Default select example">-->
+<!--                                            <option selected value="true">Actice</option>-->
+<!--                                            <option value="false">Banned</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <button class="btn btn-outline-success" type="submit">Sort</button>-->
+<!--                                </form>-->
+                                <form class="d-flex" role="search" th:action="@{/admin/user}" method="get">
+                                    <input class="form-control me-2 fst-italic" type="text"
                                            placeholder="Enter user's email... "
-                                           aria-label="Search">
+                                           aria-label="Search" name="nameFind" th:value="${nameToFind}">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
                             </div>
@@ -303,35 +303,60 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Username</th>
-                                <th>Image</th>
                                 <th>FullName</th>
+                                <th>Image</th>
                                 <th>Date of birth</th>
-                                <th>About</th>
+                                <th>Phone</th>
+                                <th>Email</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
                                 <th colspan="2">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>user1</td>
-                                <td><img width="40%" src="../demo2/src/main/resources/static/img/avatars/avatar-3.jpg"
+
+                            <tr th:each="u,loop:${users}">
+
+                                <td th:text="${u.userId}">1</td>
+                                <td th:text="${u.fullName}">user1</td>
+                                <td><img width="40%" th:src="${u.avatarUrl}"
                                          alt="avt"></td>
-                                <td>Chris Hung</td>
-                                <td>22/02/2022</td>
-                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </td>
-                                <td>Online</td>
-                                <td>28/10/2022</td>
+                                <td th:utext="${#dates.format(u.dateOfBirth, 'dd/MM/yyyy')}">22/02/2022</td>
+                                <td th:text="${u.phoneNumber}">1</td>
+                                <td th:text="${u.email}">1</td>
+                                <td th:text="${u.status}?'Active':'Banned'"></td>
+                                <td th:utext="${#dates.format(u.createdAt,'dd/MM/yyyy')}">28/10/2022</td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Unlock</button>
+                                    <th:block th:if="${u.status == true }">
+                                        <a th:href="@{/admin/doBanOrUnban/{id}(id=${u.userId})}"
+                                           onclick="return confirm('Do you want to ban this user')"
+                                           class="btn btn-danger">Ban</a>
+                                    </th:block>
+                                    <th:block th:unless="${u.status == true}">
+
+                                        <a th:href="@{/admin/doBanOrUnban/{id}(id=${u.userId})}"
+                                           onclick="return confirm('Do you want to unban this user')"
+                                           class="btn btn-success">Unban</a>
+                                    </th:block>
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Lock</button>
-                                </td>
+
+                                <!--                                <td>1</td>-->
+                                <!--                                <td>user1</td>-->
+                                <!--                                <td><img width="40%" src="../demo2/src/main/resources/static/img/avatars/avatar-3.jpg"-->
+                                <!--                                         alt="avt"></td>-->
+                                <!--                                <td>Chris Hung</td>-->
+                                <!--                                <td>22/02/2022</td>-->
+                                <!--                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--                                    incididunt ut labore et dolore magna aliqua.-->
+                                <!--                                </td>-->
+                                <!--                                <td>Online</td>-->
+                                <!--                                <td>28/10/2022</td>-->
+                                <!--                                <td>-->
+                                <!--                                    <button type="button" class="btn btn-success">Unlock</button>-->
+                                <!--                                </td>-->
+                                <!--                                <td>-->
+                                <!--                                    <button type="button" class="btn btn-danger">Lock</button>-->
+                                <!--                                </td>-->
                             </tr>
                             </tbody>
 
@@ -339,15 +364,46 @@
                     </div>
                     <nav aria-label="Page navigation example ">
                         <ul class="pagination float-end mx-4">
+                            <li class="page-item " >
+                                <!-- Check if current_page is greater than 0, then show the "Previous" link -->
+                                <a th:if="${current_page > 0}" class="page-link" th:href="@{|?page=${(current_page)-1}&size=${size}|}">Previous</a>
+                            </li>
                             <li class="page-item disabled">
-                                <a class="page-link">Previous</a>
+                                <a th:if="${current_page <= 0}" class="page-link" th:href="@{#}">Previous</a>
                             </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <th:block th:each="p,loop : ${total_page}">
+                                <li th:class="|page-item ${current_page==loop.index?'active':''}|">
+                                    <a class="page-link"
+                                       th:href="@{|?page=${loop.index}&size=${size}|}"
+                                       th:text="${loop.count}">
+                                    </a>
+                                </li>
+                            </th:block>
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" th:href="@{|?page=${current_page+1}&size=${size}|}">Next</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a th:if="${current_page < total_page}" class="page-link" th:href="@{|?page=${(current_page)+1}&size=${size}|}">Next</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a th:if="${current_page >= total_page}" class="page-link" th:href="@{#}">Next</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a  th:if="${total_page == 1000}" class="page-link" >Next</a>-->
+<!--&lt;!&ndash;                                <a class="page-link" href="#" th:if="${current_page  null || curent_page"?  total_page}" >Next</a>&ndash;&gt;-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" href="#" th:if="${1 == 1}" th:href="@{|?page=${(current_page)+1}&size=${size}|}">Next</a>-->
+<!--                            </li>-->
                             <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                                <a th:if="${current_page+1 < total_page.length}" class="page-link"
+                                   th:href="@{|?page=${(current_page)+1}&size=${size}|}">Next</a>
                             </li>
+                            <li class="page-item disabled">
+                                <a th:if="${current_page+1 >= (total_page.length)}" class="page-link">Next</a>
+                            </li>
+
                         </ul>
                     </nav>
                     <!-- /.card-body -->
@@ -391,6 +447,7 @@
 </div>
 
 <script src="../demo2/src/main/resources/static/js/app.js"></script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

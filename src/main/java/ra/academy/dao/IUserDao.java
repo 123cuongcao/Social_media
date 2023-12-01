@@ -1,9 +1,20 @@
 package ra.academy.dao;
 
+import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
+
+import java.util.List;
 
 public interface IUserDao extends IGenericDao<User, Long> {
     User findByUserEmail(String userName);
 
     int edit(User user);
+
+    int changeUserRelation(long idSender , long idReceiver, String status);
+
+    List<User> findNotFriend(long currentIdUser);
+
+    List<User> findSentPendingFriendRequests(long currentIdUser);
+    List<User> findAllFriend ( long currentIdUser);
+    List<User> getRequestFriendFromUser(long currenIdUser);
 }
