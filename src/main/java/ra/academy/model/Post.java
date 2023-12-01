@@ -5,21 +5,21 @@ import java.util.Date;
 public class Post {
     private Long postId;
     private Long userId;
-    private String title;
     private String content;
     private Date postedAt;
+    private Date updateAt;
     private Privacy privacy;
     private boolean status;
 
     public Post() {
     }
 
-    public Post(Long postId, Long userId, String title, String content, Date postedAt, Privacy privacy, boolean status) {
+    public Post(Long postId, Long userId, String content, Date postedAt, Date updateAt, Privacy privacy, boolean status) {
         this.postId = postId;
         this.userId = userId;
-        this.title = title;
         this.content = content;
         this.postedAt = postedAt;
+        this.updateAt = updateAt;
         this.privacy = privacy;
         this.status = status;
     }
@@ -40,14 +40,6 @@ public class Post {
         this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
@@ -62,6 +54,14 @@ public class Post {
 
     public void setPostedAt(Date postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 
     public Privacy getPrivacy() {

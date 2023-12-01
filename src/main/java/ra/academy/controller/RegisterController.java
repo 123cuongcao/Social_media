@@ -37,7 +37,7 @@ public class RegisterController {
         }
 
         userService.register(userRegister);
-        return "component/login";
+        return "redirect:/";
     }
 
 }

@@ -1,15 +1,33 @@
 package ra.academy.model;
 
 public class PostTopic {
+    private Long postTopicId;
+    private Long topicId;
     private Long postId;
-    private Topic topic;
 
     public PostTopic() {
     }
 
-    public PostTopic(Long postId, Topic topic) {
+    public PostTopic(Long postTopicId, Long topicId, Long postId) {
+        this.postTopicId = postTopicId;
+        this.topicId = topicId;
         this.postId = postId;
-        this.topic = topic;
+    }
+
+    public Long getPostTopicId() {
+        return postTopicId;
+    }
+
+    public void setPostTopicId(Long postTopicId) {
+        this.postTopicId = postTopicId;
+    }
+
+    public Long getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
     }
 
     public Long getPostId() {
@@ -18,13 +36,5 @@ public class PostTopic {
 
     public void setPostId(Long postId) {
         this.postId = postId;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
     }
 }

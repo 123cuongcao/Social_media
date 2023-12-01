@@ -6,5 +6,6 @@ public interface IGenericDao<T,E> {
     List<T> findAll();
     T findById(E id);
     int save(T t);
+    void deleteById(E id);
 
 }
