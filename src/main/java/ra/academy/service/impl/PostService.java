@@ -6,9 +6,7 @@ import ra.academy.dao.IPostDao;
 import ra.academy.dto.PostRequest;
 import ra.academy.dto.PostResponseAdmin;
 import ra.academy.dto.PostResponseUser;
-import ra.academy.model.FileUrl;
 import ra.academy.service.IPostService;
-import ra.academy.service.UploadService;
 
 import javax.sql.DataSource;
 import java.sql.*;
