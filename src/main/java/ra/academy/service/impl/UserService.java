@@ -4,9 +4,11 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ra.academy.dao.IUserDao;
+import ra.academy.dto.FriendRelationReponse;
 import ra.academy.dto.UserEditInfor;
 import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
+import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
 import ra.academy.service.IUserService;
 
@@ -41,6 +43,39 @@ public class UserService implements IUserService {
         return new UserEditInfor(
                 user.getFullName(),user.getEmail(),user.getPhoneNumber(),user.getDateOfBirth(),user.getAvatarUrl()
         );
+    }
+
+    @Override
+    public List<User> findNotFriend(long currentUserId) {
+         return userDao.findNotFriend(currentUserId);
+
+    }
+
+    @Override
+    public List<User> findSentPendingFriendRequests(long currentUserId) {
+       return userDao.findSentPendingFriendRequests(currentUserId);
+    }
+
+    @Override
+    public List<User> findAllFriend(long currentIdUser) {
+       return userDao.findAllFriend(currentIdUser);
+    }
+
+    @Override
+    public List<User> getRequestFriendFromUser(long currentIdUser) {
+        return userDao.getRequestFriendFromUser(currentIdUser);
+    }
+
+    @Override
+    public int changUserRelation(long idSender, long idReceiver, RelationshipStatus status) {
+        return userDao.changeUserRelation(idSender,idReceiver,status.toString());
+    }
+
+
+    @Override
+    public int doAddFriend(long idSender, long idReceiver, RelationshipStatus status) {
+        return userDao.addUserRelation(idSender,idReceiver,status.toString());
+
     }
 
     @Override

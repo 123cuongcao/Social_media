@@ -41,13 +41,18 @@ public class LoginController {
             model.addAttribute("login_fail", "Username or password is inccorect");
             return "component/login";
         }
-
+        if (user.isRole()) {
+            session.setAttribute("user_login", userLogin);
+            return "redirect:/admin/user";
+        }
         session.setAttribute("user_login", userLogin);
         User user1 = userService.findAllUser().stream().filter(u->u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
         model.addAttribute("image",user1.getAvatarUrl());
         return "component/default";
 
     }
+
+
 
 
 }
