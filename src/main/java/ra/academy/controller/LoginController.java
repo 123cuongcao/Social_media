@@ -48,8 +48,7 @@ public class LoginController {
         session.setAttribute("user_login", userLogin);
         User user1 = userService.findAllUser().stream().filter(u->u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
         model.addAttribute("image",user1.getAvatarUrl());
-        return "component/default";
-
+        return "redirect:/homepage";
     }
 
 
