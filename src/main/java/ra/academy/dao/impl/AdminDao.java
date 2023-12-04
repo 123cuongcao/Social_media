@@ -17,6 +17,11 @@ public class AdminDao implements IAdminDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
     public int banOrUnbanUser(long idUser) {
         String sql = "CALL banOrUnban(?)";
         return jdbcTemplate.update(sql, idUser);

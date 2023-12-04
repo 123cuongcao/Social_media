@@ -6,6 +6,7 @@ import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
+import ra.academy.model.UserRelation;
 
 import java.util.List;
 
@@ -34,6 +35,10 @@ public interface IUserService {
     List<User> findAllFriend (long currentIdUser);
     List<User> getRequestFriendFromUser(long currentIdUser);
     int changUserRelation(long id,long idReceiver, RelationshipStatus status);
+
+    UserRelation getUserRelation(long idSender ,long idReceiver);
+    long findUserByUserEmail(String email);
+    int deleteUserRelation(long idSender , long idReceiver);
 
 
 }
