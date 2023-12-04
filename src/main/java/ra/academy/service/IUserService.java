@@ -26,11 +26,14 @@ public interface IUserService {
 
     UserEditInfor findUserByEmailToEdit(String email);
 
-    int doAddFriend(long id, long idReceiver, RelationshipStatus status);
+    int doAddFriend(long idSender, long idReceiver, RelationshipStatus status);
 
     List<User> findNotFriend(long currentUserId);
 
     List<User> findSentPendingFriendRequests( long currentUserId);
     List<User> findAllFriend (long currentIdUser);
     List<User> getRequestFriendFromUser(long currentIdUser);
+    int changUserRelation(long id,long idReceiver, RelationshipStatus status);
+
+
 }

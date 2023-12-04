@@ -17,4 +17,5 @@ public interface IUserDao extends IGenericDao<User, Long> {
     List<User> findSentPendingFriendRequests(long currentIdUser);
     List<User> findAllFriend ( long currentIdUser);
     List<User> getRequestFriendFromUser(long currenIdUser);
+    int addUserRelation(long idSender , long idReceiver, String status);
 }

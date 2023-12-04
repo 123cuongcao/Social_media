@@ -50,6 +50,7 @@ public class UserService implements IUserService {
     @Override
     public List<User> findNotFriend(long currentUserId) {
          return userDao.findNotFriend(currentUserId);
+
     }
 
     @Override
@@ -68,8 +69,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int doAddFriend(long idSender, long idReceiver, RelationshipStatus status) {
+    public int changUserRelation(long idSender, long idReceiver, RelationshipStatus status) {
         return userDao.changeUserRelation(idSender,idReceiver,status.toString());
+    }
+
+
+    @Override
+    public int doAddFriend(long idSender, long idReceiver, RelationshipStatus status) {
+        return userDao.addUserRelation(idSender,idReceiver,status.toString());
 
     }
 

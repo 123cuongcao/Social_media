@@ -313,11 +313,11 @@
                                         <a th:if="${status == 'SF'}" th:href="@{/friend/addFriend/{id}(id=${u.userId})}"
                                            class="mt-0 btn pt-2 pb-2 ps-3 pe-3 lh-24 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">ADD
                                             FRIEND</a>
-                                        <a th:if="${status == 'AF'}" th:href="@{/friend/addFriend/{id}(id=${u.userId})}"
+                                        <a th:if="${status == 'AF'}" th:href="@{/friend/detail/{id}(id=${u.userId})}"
                                            class="mt-0 btn pt-2 pb-2 ps-3 pe-3 lh-24 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">DETAIL
                                         </a>
-                                        <a th:if="${status == 'RF' && currenId==u.userId}" th:href="@{/friend/addFriend/{id}(id=${u.userId})}"
-                                           class="mt-0 btn pt-2 pb-2 ps-3 pe-3 lh-24 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">DETAIL
+                                        <a th:if="${status == 'FR' }" th:href="@{/friend/cancel/{id}(id=${u.userId})}"
+                                           class="mt-0 btn pt-2 pb-2 ps-3 pe-3 lh-24 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">CANCLE REQUEST
                                         </a>
                                     </div>
                                 </div>
@@ -334,7 +334,7 @@
                                             Exrixon </h4>
                                         <p class="fw-500 font-xsssss text-grey-500 mt-0 mb-3" th:text="${u.email}">
                                             @macale343</p>
-                                        <a th:href="@{/friend/addFriend/{id}(id=${u.userId})}"
+                                        <a th:href="@{/friend/accept/{id}(id=${u.userId})}"
                                            class="mt-0 btn pt-2 pb-2 ps-3 pe-3 lh-24 ms-1 ls-3 d-inline-block rounded-xl bg-success font-xsssss fw-700 ls-lg text-white">Accept</a>
                                     </div>
                                 </div>

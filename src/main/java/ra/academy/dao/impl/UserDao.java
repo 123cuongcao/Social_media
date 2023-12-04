@@ -86,10 +86,14 @@ public class UserDao implements IUserDao {
 
     @Override
     public int changeUserRelation(long idSender , long idReceiver , String status) {
-        String sql = "call create_user_relation(?,?,?)";
+        String sql = "call change_user_relation(?,?,?)";
         return jdbcTemplate.update(sql,idSender,idReceiver,status);
     }
 
+    public int addUserRelation(long idSender , long idReceiver , String status) {
+        String sql = "call create_user_relation(?,?,?)";
+        return jdbcTemplate.update(sql,idSender,idReceiver,status);
+    }
     @Override
     public List<User> findNotFriend(long currentIdUser) {
         String sql = "call get_not_friend(?)";
@@ -158,7 +162,7 @@ public class UserDao implements IUserDao {
 
     @Override
     public List<User> findAllFriend(long currentIdUser) {
-        String sql = "call FindAllFriends(?)";
+        String sql = "call GetAllFriends(?)";
         List<User> list = jdbcTemplate.query(sql,new Object[]{currentIdUser},
                 (rs, rowNum) -> {
                     User u = new User();
