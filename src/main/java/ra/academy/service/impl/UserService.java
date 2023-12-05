@@ -149,4 +149,9 @@ public class UserService implements IUserService {
     public long findUserByUserEmail(String email) {
         return 0;
     }
+
+    @Override
+    public int changePassword(long idUser, String password) {
+        return userDao.changePassword(idUser, BCrypt.hashpw(password, BCrypt.gensalt(12)));
+    }
 }

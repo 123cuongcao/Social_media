@@ -6,5 +6,4 @@ import java.util.Date;
 
 public class ReelDto {
     public MultipartFile upload_url;
-    public String content;
 }

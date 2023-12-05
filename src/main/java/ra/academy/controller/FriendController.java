@@ -82,7 +82,7 @@ public class FriendController {
     public String doCancel(@PathVariable("id") long id, HttpSession session) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        userService.changUserRelation(user.getUserId(), id, RelationshipStatus.CANCELED);
+        userService.deleteUserRelation(user.getUserId(), id);
         return "redirect:/friend/SF";
     }
 

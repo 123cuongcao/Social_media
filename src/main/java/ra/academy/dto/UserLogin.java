@@ -5,14 +5,16 @@ import javax.validation.constraints.Pattern;
 
 public class UserLogin {
     private String userEmail ;
+    private Long userId;
     private String password;
 
-    public UserLogin(String userEmail, String password) {
-        this.userEmail = userEmail;
-        this.password = password;
+    public UserLogin() {
     }
 
-    public UserLogin() {
+    public UserLogin(String userEmail, Long userId, String password) {
+        this.userEmail = userEmail;
+        this.userId = userId;
+        this.password = password;
     }
 
     public String getUserEmail() {
@@ -21,6 +23,14 @@ public class UserLogin {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {

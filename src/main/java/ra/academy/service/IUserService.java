@@ -40,6 +40,8 @@ public interface IUserService {
     long findUserByUserEmail(String email);
     int deleteUserRelation(long idSender , long idReceiver);
 
+    int  changePassword(long idUser , String password);
+
 
     Long findUserIdByUserEmail(String email);
     User findUserByPostId(Long postId);

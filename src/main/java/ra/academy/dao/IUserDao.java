@@ -1,5 +1,6 @@
 package ra.academy.dao;
 
+import ra.academy.dto.ChangePassword;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
 import ra.academy.model.UserRelation;
@@ -27,4 +28,6 @@ public interface IUserDao extends IGenericDao<User, Long> {
     UserRelation getUserRelation(long idSender, long idReceiver);
 
     int deleteUserRelation(long idSender, long idReceiver);
+
+    int changePassword( long idUser,String password);
 }
