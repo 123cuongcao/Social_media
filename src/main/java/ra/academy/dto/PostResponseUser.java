@@ -17,11 +17,12 @@ public class PostResponseUser {
     private int likeCount;
     private int commentCount;
     private List<Long> taggedUserId;
+    private boolean status;
 
     public PostResponseUser() {
     }
 
-    public PostResponseUser(Long postId, String userEmail, List<Topic> topics, String postContent, List<FileUrl> urls, Date postTime, Date updateTime, Privacy postPrivacy, int likeCount, int commentCount, List<Long> taggedUserId) {
+    public PostResponseUser(Long postId, String userEmail, List<Topic> topics, String postContent, List<FileUrl> urls, Date postTime, Date updateTime, Privacy postPrivacy, int likeCount, int commentCount, List<Long> taggedUserId, boolean status) {
         this.postId = postId;
         this.userEmail = userEmail;
         this.topics = topics;
@@ -33,6 +34,7 @@ public class PostResponseUser {
         this.likeCount = likeCount;
         this.commentCount = commentCount;
         this.taggedUserId = taggedUserId;
+        this.status = status;
     }
 
     public Long getPostId() {
@@ -121,5 +123,13 @@ public class PostResponseUser {
 
     public void setTaggedUserId(List<Long> taggedUserId) {
         this.taggedUserId = taggedUserId;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

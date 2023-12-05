@@ -3,24 +3,33 @@ package ra.academy.dto;
 import org.springframework.web.multipart.MultipartFile;
 import ra.academy.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class PostRequest {
     private Long postId;
     private Long userId;
-    private List<Long> topicIds;
+    private List<Long> topicIds = new ArrayList<>();
     private String content;
     private List<MultipartFile> files;
-    private Date postTime;
-    private Date updateTime;
-    private Privacy privacy;
-    private List<Long> taggedUserIds;
+    private String privacy;
+    private List<Long> taggedUserIds = new ArrayList<>();
     public PostRequest() {
     }
 
     public Long getPostId() {
         return postId;
+    }
+
+    public PostRequest(Long postId, Long userId, List<Long> topicIds, String content, List<MultipartFile> files, String privacy, List<Long> taggedUserIds) {
+        this.postId = postId;
+        this.userId = userId;
+        this.topicIds = topicIds;
+        this.content = content;
+        this.files = files;
+        this.privacy = privacy;
+        this.taggedUserIds = taggedUserIds;
     }
 
     public void setPostId(Long postId) {
@@ -59,27 +68,11 @@ public class PostRequest {
         this.files = files;
     }
 
-    public Date getPostTime() {
-        return postTime;
-    }
-
-    public void setPostTime(Date postTime) {
-        this.postTime = postTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Privacy getPrivacy() {
+    public String getPrivacy() {
         return privacy;
     }
 
-    public void setPrivacy(Privacy privacy) {
+    public void setPrivacy(String privacy) {
         this.privacy = privacy;
     }
 

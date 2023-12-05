@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IPostTagUserDao;
 import ra.academy.model.PostTagUser;
+import ra.academy.model.Topic;
+import ra.academy.model.TopicName;
 import ra.academy.model.User;
 
 import java.util.List;
@@ -17,6 +19,18 @@ public class PostTagUserDao implements IPostTagUserDao {
     @Override
     public List<PostTagUser> findAll() {
         return null;
+    }
+
+    @Override
+    public List<Long> findAllFriendId() {
+        String sql = "call proc_find_all_friend()";
+        List<Long> list = jdbcTemplate.query(sql,
+                (rs, rowNum) -> {
+                    User user = new User();
+                    user.setUserId(rs.getLong("user_id"));
+                    return user.getUserId();
+                });
+        return list;
     }
 
     @Override
@@ -36,7 +50,7 @@ public class PostTagUserDao implements IPostTagUserDao {
 
     @Override
     public List<Long> findTaggedUserIdByPostId(Long postId) {
-        String sql = "call proc_find_user_by_post_id(?)";
+        String sql = "call proc_find_user_tag_by_post_id(?)";
         List<Long> list = jdbcTemplate.query(sql, new Object[]{postId},
                 (rs, rowNum) -> {
                     User user = new User();

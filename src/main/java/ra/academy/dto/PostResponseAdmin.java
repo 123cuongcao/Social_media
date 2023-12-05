@@ -16,11 +16,12 @@ public class PostResponseAdmin {
     private Date postTime;
     private Date updateTime;
     private Privacy postPrivacy;
+    private boolean status;
 
     public PostResponseAdmin() {
     }
 
-    public PostResponseAdmin(Long postId, String userEmail, List<Topic> topics, String postContent, List<FileUrl> urls, Date postTime, Date updateTime, Privacy postPrivacy) {
+    public PostResponseAdmin(Long postId, String userEmail, List<Topic> topics, String postContent, List<FileUrl> urls, Date postTime, Date updateTime, Privacy postPrivacy, boolean status) {
         this.postId = postId;
         this.userEmail = userEmail;
         this.topics = topics;
@@ -29,6 +30,7 @@ public class PostResponseAdmin {
         this.postTime = postTime;
         this.updateTime = updateTime;
         this.postPrivacy = postPrivacy;
+        this.status = status;
     }
 
     public Long getPostId() {
@@ -93,5 +95,13 @@ public class PostResponseAdmin {
 
     public void setPostPrivacy(Privacy postPrivacy) {
         this.postPrivacy = postPrivacy;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

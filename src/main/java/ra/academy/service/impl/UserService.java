@@ -35,6 +35,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Long findUserIdByUserEmail(String email) {
+        return  findAllUser().stream().filter(u->u.getEmail().equals(email)).findFirst().orElse(null).getUserId();
+    }
+
+    @Override
     public UserEditInfor findUserByEmailToEdit(String email) {
         User user = findAllUser().stream().filter(u->u.getEmail().equals(email)).findFirst().orElse(null);
 
@@ -87,5 +92,10 @@ public class UserService implements IUserService {
     @Override
     public void save(UserRegister userRegister) {
 
+    }
+
+    @Override
+    public User findUserByPostId(Long postId) {
+        return userDao.findUserByPostId(postId);
     }
 }

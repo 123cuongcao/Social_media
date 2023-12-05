@@ -6,6 +6,7 @@ import ra.academy.dao.IPostDao;
 import ra.academy.dto.PostRequest;
 import ra.academy.dto.PostResponseAdmin;
 import ra.academy.dto.PostResponseUser;
+import ra.academy.model.Privacy;
 import ra.academy.service.IPostService;
 
 import javax.sql.DataSource;
@@ -38,9 +39,10 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void save(PostRequest postRequest) {
+    public void save(PostRequest postRequest, String email) {
         List<String> files = uploadService.uploadFileToServer(postRequest.getFiles());
-        postDao.createPost(postRequest, files);
+        Privacy privacy = Privacy.valueOf(postRequest.getPrivacy());
+        postDao.createPost(postRequest, files, email, privacy);
     }
 
     @Override

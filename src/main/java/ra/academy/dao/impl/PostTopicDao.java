@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IPostTopicDao;
+import ra.academy.dto.PostResponseAdmin;
+import ra.academy.model.Privacy;
 import ra.academy.model.Topic;
 import ra.academy.model.TopicName;
 
@@ -15,7 +17,15 @@ public class PostTopicDao implements IPostTopicDao {
     private JdbcTemplate jdbcTemplate;
     @Override
     public List<Topic> findAll() {
-        return null;
+        String sql = "call proc_find_all_topic()";
+        List<Topic> list = jdbcTemplate.query(sql,
+                (rs, rowNum) -> {
+                    Topic topic = new Topic();
+                    topic.setTopicId(rs.getLong("topic_id"));
+                    topic.setTopicName(TopicName.valueOf(rs.getString("topic")));
+                    return topic;
+                });
+        return list;
     }
 
     @Override

@@ -269,7 +269,7 @@
                             <div class="container-fluid">
                                 <form class="d-flex" role="search">
                                     <input class="form-control me-2 fst-italic" type="search"
-                                           placeholder="Enter Keywords or User's email... "
+                                           placeholder="Enter Keywords ..."
                                            aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
@@ -285,25 +285,28 @@
                                 <th>User Account</th>
                                 <th>Descripttion</th>
                                 <th>Created Date</th>
-                                <th colspan="2">Action</th>
+                                <th>Updated Date</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="categories">
-                            <tr>
-                                <td>1</td>
-                                <td>sonPink@gmail.com</td>
+                            <tr th:each="post : ${list_post}">
+                                <td th:text="${post.getPostId()}"></td>
+                                <td th:text="${post.getUserEmail()}"></td>
                                 <td>
                                     <b> Content: </b> <br>
-                                    <p> Hoa Rơi cửa Phật ...</p>
+                                    <p th:text="${post.getPostContent()}"></p>
                                     <b> Media: </b> <br>
-                                    <p> https://i.pinimg.com/564x/d4/e5/f9/d4e5f9c421e3f9b8702ffa3ceb81cb1d.jpg</p>
+                                    <p th:each="url : ${post.getUrls()}">
+                                        <img th:src="${url}" alt="">
+                                    </p>
                                 </td>
-                                <td>29/11/2023 11:01:23 UTC-8</td>
+                                <td th:text="${post.getPostTime()}"></td>
+                                <td th:text="${post.getUpdateTime()}"></td>
+
                                 <td>
-                                    <button type="button" class="btn btn-warning">Ban</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Unban</button>
+                                    <button th:if="${post.isStatus()}" type="button" class="btn btn-warning">Ban</button>
+                                    <button th:unless="${post.isStatus()}" type="button" class="btn btn-danger">Unban</button>
                                 </td>
                             </tr>
 

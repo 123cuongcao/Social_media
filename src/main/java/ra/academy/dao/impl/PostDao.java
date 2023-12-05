@@ -13,6 +13,7 @@ import ra.academy.dto.PostResponseAdmin;
 import ra.academy.dto.PostResponseUser;
 import ra.academy.model.*;
 import ra.academy.service.IPostService;
+import ra.academy.service.IUserService;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -32,6 +33,8 @@ public class PostDao implements IPostDao {
     private DataSource dataSource;
     @Autowired
     private IPostService postService;
+    @Autowired
+    private IUserService userService;
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -54,54 +57,64 @@ public class PostDao implements IPostDao {
     }
 
     @Override
-    public void createPost(PostRequest postRequest, List<String> files) {
+    public void createPost(PostRequest postRequest, List<String> files, String email, Privacy privacy) {
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
             if (postRequest.getPostId() == null) {
                 //add new
                 conn.setAutoCommit(false);
-                String sql1 = "call proc_create_post(?,?,?,?,?)";
+                String sql1 = "call proc_create_post(?,?,?,?)";
                 String sql2 = "insert into post_topic(post_id, topic_id) values ";
                 String sql3 = "insert into post_tag_user(tagged_user_id, post_id) values ";
                 String sql4 = "insert into file_url(post_id, post_url) values ";
 
                 CallableStatement callSt1 = conn.prepareCall(sql1);
                 callSt1.registerOutParameter(1, Types.BIGINT);
-                callSt1.setLong(2, postRequest.getUserId());
+                callSt1.setLong(2, userService.findUserIdByUserEmail(email));
                 callSt1.setString(3, postRequest.getContent());
-                callSt1.setDate(4, new Date(postRequest.getPostTime().getTime()));
-                callSt1.setString(5, postRequest.getPrivacy().name());
+                callSt1.setString(4, privacy.name());
                 callSt1.executeUpdate();
 
                 Long newPostId = callSt1.getLong(1);
 
-                for (Long topicId : postRequest.getTopicIds()) {
-                    sql2 += "(" + newPostId + "," + topicId + ")";
-                    if (postRequest.getTopicIds().indexOf(topicId) < postRequest.getTopicIds().size() - 1) {
-                        sql2 += ",";
-                    }
-                }
-                CallableStatement callSt2 = conn.prepareCall(sql2);
-                callSt2.executeUpdate();
 
-                for (Long userId : postRequest.getTaggedUserIds()) {
-                    sql3 += "(" + userId + "," + newPostId + ")";
-                    if (postRequest.getTaggedUserIds().indexOf(userId) < postRequest.getTaggedUserIds().size() - 1) {
-                        sql3 += ",";
+                if (!postRequest.getTopicIds().isEmpty()) {
+                    for (Long topicId : postRequest.getTopicIds()) {
+                        sql2 += "(" + newPostId + "," + topicId + ")";
+                        if (postRequest.getTopicIds().indexOf(topicId) < postRequest.getTopicIds().size() - 1) {
+                            sql2 += ",";
+                        }
                     }
+                    CallableStatement callSt2 = conn.prepareCall(sql2);
+                    callSt2.executeUpdate();
                 }
-                CallableStatement callSt3 = conn.prepareCall(sql3);
-                callSt3.executeUpdate();
 
-                for (String f : files) {
-                    sql4 += "(" + newPostId + "," + f + ")";
-                    if (files.indexOf(f) < files.size() - 1) {
-                        sql4 += ",";
+
+
+                if (!postRequest.getTaggedUserIds().isEmpty()) {
+                    for (Long userId : postRequest.getTaggedUserIds()) {
+                        sql3 += "(" + userId + "," + newPostId + ")";
+                        if (postRequest.getTaggedUserIds().indexOf(userId) < postRequest.getTaggedUserIds().size() - 1) {
+                            sql3 += ",";
+                        }
                     }
+                    CallableStatement callSt3 = conn.prepareCall(sql3);
+                    callSt3.executeUpdate();
                 }
-                CallableStatement callSt4 = conn.prepareCall(sql4);
-                callSt4.executeUpdate();
+
+
+
+                if (!files.isEmpty()) {
+                    for (String f : files) {
+                        sql4 += "(" + newPostId + ",'" + f + "')";
+                        if (files.indexOf(f) < files.size() - 1) {
+                            sql4 += ",";
+                        }
+                    }
+                    CallableStatement callSt4 = conn.prepareCall(sql4);
+                    callSt4.executeUpdate();
+                }
 
                 conn.commit();
             } else {
@@ -140,6 +153,7 @@ public class PostDao implements IPostDao {
                     post.setPostTime(rs.getDate("post_time"));
                     post.setUpdateTime(rs.getDate("update_time"));
                     post.setPostPrivacy(Privacy.valueOf(rs.getString("privacy")));
+                    post.setStatus(rs.getBoolean("status"));
                     return post;
                 });
         return list;
@@ -162,6 +176,7 @@ public class PostDao implements IPostDao {
                     post.setLikeCount(rs.getInt("count_like"));
                     post.setCommentCount(rs.getInt("count_comment"));
                     post.setTaggedUserId(postTagUserDao.findTaggedUserIdByPostId(rs.getLong("post_id")));
+                    post.setStatus(rs.getBoolean("status"));
                     return post;
                 });
         return list;

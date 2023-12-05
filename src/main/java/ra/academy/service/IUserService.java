@@ -22,6 +22,6 @@ public interface IUserService {
 
     void edit(UserEditInfor userEditInfor);
     UserEditInfor findUserByEmailToEdit(String email);
-
-
+    Long findUserIdByUserEmail(String email);
+    User findUserByPostId(Long postId);
 }

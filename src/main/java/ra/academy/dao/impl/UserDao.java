@@ -1,9 +1,11 @@
 package ra.academy.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IUserDao;
+import ra.academy.model.Post;
 import ra.academy.model.User;
 
 import java.util.List;
@@ -90,5 +92,11 @@ public class UserDao implements IUserDao {
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public User findUserByPostId(Long postId) {
+        String sql = "call proc_find_user_tag_by_post_id(?)";
+        return jdbcTemplate.queryForObject(sql, new Object[]{postId}, new BeanPropertyRowMapper<>(User.class));
     }
 }
