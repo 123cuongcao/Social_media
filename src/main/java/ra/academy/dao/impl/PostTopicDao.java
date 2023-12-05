@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IPostTopicDao;
-import ra.academy.dto.PostResponseAdmin;
-import ra.academy.model.Privacy;
 import ra.academy.model.Topic;
 import ra.academy.model.TopicName;
 
@@ -39,8 +37,9 @@ public class PostTopicDao implements IPostTopicDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 
     @Override

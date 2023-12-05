@@ -5,8 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IPostTagUserDao;
 import ra.academy.model.PostTagUser;
-import ra.academy.model.Topic;
-import ra.academy.model.TopicName;
 import ra.academy.model.User;
 
 import java.util.List;
@@ -22,13 +20,23 @@ public class PostTagUserDao implements IPostTagUserDao {
     }
 
     @Override
-    public List<Long> findAllFriendId() {
-        String sql = "call proc_find_all_friend()";
-        List<Long> list = jdbcTemplate.query(sql,
+    public List<User> findAllFriendId(Long userId) {
+        String sql = "call GetAllFriends(?)";
+        List<User> list = jdbcTemplate.query(sql,new Object[]{userId},
                 (rs, rowNum) -> {
-                    User user = new User();
-                    user.setUserId(rs.getLong("user_id"));
-                    return user.getUserId();
+                    User u = new User();
+                    u.setUserId(rs.getLong("user_id"));
+                    u.setFullName(rs.getString("full_name"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPhoneNumber(rs.getString("phone_number"));
+                    u.setDateOfBirth(rs.getDate("date_of_birth"));
+                    u.setAvatarUrl(rs.getString("avatar_url"));
+                    u.setStatus(rs.getBoolean("status"));
+                    u.setRole(rs.getBoolean("role"));
+                    u.setUpdatedAt(rs.getDate("updated_at"));
+                    u.setPassword(rs.getString("password"));
+                    u.setCreatedAt(rs.getDate("created_at"));
+                    return u;
                 });
         return list;
     }
@@ -44,8 +52,9 @@ public class PostTagUserDao implements IPostTagUserDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 
     @Override

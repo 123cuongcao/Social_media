@@ -237,9 +237,9 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="../demo2/src/main/resources/static/img/avatars/avatar.jpg"
+                            <span class="text-dark" th:text="${user.getFullName()}"></span>
+                            <img th:src="${user.getAvatarUrl()}"
                                  class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Chris Hung</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="#"><i class="align-middle me-1"
@@ -267,10 +267,10 @@
                         <h3 class="card-title">Post Managerment</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2 fst-italic" type="search"
-                                           placeholder="Enter Keywords ..."
-                                           aria-label="Search">
+                                <form class="d-flex" role="search" th:action="@{/admin/post}" method="get">
+                                    <input class="form-control me-2 fst-italic" type="text"
+                                           placeholder="Enter user's email... "
+                                           aria-label="Search" name="contentFind" th:value="${contentToFind}">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
                             </div>
@@ -290,7 +290,7 @@
                             </tr>
                             </thead>
                             <tbody id="categories">
-                            <tr th:each="post : ${list_post}">
+                            <tr th:each="post : ${posts}">
                                 <td th:text="${post.getPostId()}"></td>
                                 <td th:text="${post.getUserEmail()}"></td>
                                 <td>
@@ -298,33 +298,57 @@
                                     <p th:text="${post.getPostContent()}"></p>
                                     <b> Media: </b> <br>
                                     <p th:each="url : ${post.getUrls()}">
-                                        <img th:src="${url}" alt="">
+                                        <img width="50" th:src="${url.getFileUrl()}" alt="image">
                                     </p>
                                 </td>
-                                <td th:text="${post.getPostTime()}"></td>
-                                <td th:text="${post.getUpdateTime()}"></td>
+                                <td th:utext="${#dates.format(post.getPostTime(), 'dd/MM/yyyy - HH:mm:ss')}"></td>
+                                <td th:utext="${#dates.format(post.getUpdateTime(), 'dd/MM/yyyy - HH:mm:ss')}"></td>
 
                                 <td>
-                                    <button th:if="${post.isStatus()}" type="button" class="btn btn-warning">Ban</button>
-                                    <button th:unless="${post.isStatus()}" type="button" class="btn btn-danger">Unban</button>
+
+                                    <th:block th:if="${post.isStatus()}">
+                                        <a th:href="@{/admin/ban_unban_post/{id}(id=${post.getPostId()})}"
+                                           onclick="return confirm('Do you want to ban this user')"
+                                           class="btn btn-danger">Ban</a>
+                                    </th:block>
+                                    <th:block th:unless="${post.isStatus()}">
+
+                                        <a th:href="@{/admin/ban_unban_post/{id}(id=${post.getPostId()})}"
+                                           onclick="return confirm('Do you want to unban this user')"
+                                           class="btn btn-success">Unban</a>
+                                    </th:block>
                                 </td>
                             </tr>
 
                             </tbody>
-
                         </table>
                     </div>
                     <nav aria-label="Page navigation example ">
                         <ul class="pagination float-end mx-4">
+                            <li class="page-item " >
+                                <!-- Check if current_page is greater than 0, then show the "Previous" link -->
+                                <a th:if="${p_page > 0}" class="page-link" th:href="@{|?page=${(p_page)-1}&size=${p_size}&contentFind=${contentToFind}|}">Previous</a>
+                            </li>
                             <li class="page-item disabled">
-                                <a class="page-link">Previous</a>
+                                <a th:if="${p_page <= 0}" class="page-link" th:href="@{#}">Previous</a>
                             </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <th:block th:each="p,loop : ${p_total_page}">
+                                <li th:class="|page-item ${p_page==loop.index?'active':''}|">
+                                    <a class="page-link"
+                                       th:href="@{|?page=${loop.index}&size=${p_size}&contentFind=${contentToFind}|}"
+                                       th:text="${loop.count}">
+                                    </a>
+                                </li>
+                            </th:block>
                             <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                                <a th:if="${p_page+1 < p_total_page.length}" class="page-link"
+                                   th:href="@{|?page=${(p_page)+1}&size=${p_size}&contentFind=${contentToFind}|}">Next</a>
                             </li>
+                            <li class="page-item disabled">
+                                <a th:if="${p_page+1 >= (p_total_page.length)}" class="page-link">Next</a>
+                            </li>
+
                         </ul>
                     </nav>
                     <!-- /.card-body -->

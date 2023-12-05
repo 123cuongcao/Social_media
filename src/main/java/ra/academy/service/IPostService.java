@@ -11,5 +11,8 @@ public interface IPostService {
     List<PostResponseUser> findAllPostForUser(Long userId);
     void save(PostRequest postRequest, String email);
     void deleteById(Long id);
+    void changePostStatus(Long id);
+    List<PostResponseAdmin> findAllPostByContent(int page, int size, String name);
+    long getTotalPage(int size,String search);
 
 }

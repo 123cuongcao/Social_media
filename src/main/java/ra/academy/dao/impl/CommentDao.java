@@ -27,7 +27,8 @@ public class CommentDao implements ICommentDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 }

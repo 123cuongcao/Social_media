@@ -12,15 +12,19 @@ public interface IUserDao extends IGenericDao<User, Long> {
     int edit(User user);
     User findUserByPostId(Long postId);
 
-    int changeUserRelation(long idSender , long idReceiver, String status);
+    int changeUserRelation(long idSender, long idReceiver, String status);
 
     List<User> findNotFriend(long currentIdUser);
 
     List<User> findSentPendingFriendRequests(long currentIdUser);
-    List<User> findAllFriend ( long currentIdUser);
-    List<User> getRequestFriendFromUser(long currenIdUser);
-    int addUserRelation(long idSender , long idReceiver, String status);
-    UserRelation getUserRelation(long idSender , long idReceiver);
 
-    int deleteUserRelation (long idSender , long idReceiver);
+    List<User> findAllFriend(long currentIdUser);
+
+    List<User> getRequestFriendFromUser(long currenIdUser);
+
+    int addUserRelation(long idSender, long idReceiver, String status);
+
+    UserRelation getUserRelation(long idSender, long idReceiver);
+
+    int deleteUserRelation(long idSender, long idReceiver);
 }

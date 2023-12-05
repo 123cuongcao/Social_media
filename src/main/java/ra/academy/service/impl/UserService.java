@@ -145,4 +145,8 @@ public class UserService implements IUserService {
         return userDao.findUserByPostId(postId);
     }
 
+    @Override
+    public long findUserByUserEmail(String email) {
+        return 0;
+    }
 }

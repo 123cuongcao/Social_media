@@ -47,6 +47,25 @@ public class PostService implements IPostService {
 
     @Override
     public void deleteById(Long id) {
+        postDao.deleteById(id);
+    }
 
+    @Override
+    public void changePostStatus(Long id) {
+        postDao.changePostStatus(id);
+    }
+
+    @Override
+    public List<PostResponseAdmin> findAllPostByContent(int page, int size, String name) {
+        return postDao.findAllPostByContent(size, page*size, name);
+    }
+
+    @Override
+    public long getTotalPage(int size, String search) {
+        long count = postDao.findAllPostForAdmin().stream().filter(p->p.getPostContent().contains(search)).count();
+        if (count % size == 0) {
+            return count / size;
+        }
+        return count / size + 1;
     }
 }

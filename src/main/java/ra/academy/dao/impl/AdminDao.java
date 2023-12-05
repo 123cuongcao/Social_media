@@ -17,8 +17,9 @@ public class AdminDao implements IAdminDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 
     @Override
@@ -54,28 +55,6 @@ public class AdminDao implements IAdminDao {
     public List<User> findAllByName(int limit, int offset, String name) {
         String sql = "CALL findUserByName(?,?,?) ";
         List<User> list = jdbcTemplate.query(sql, new Object[]{limit, offset, name},
-                (rs, rowNum) -> {
-                    User u = new User();
-                    u.setUserId(rs.getLong("user_id"));
-                    u.setFullName(rs.getString("full_name"));
-                    u.setEmail(rs.getString("email"));
-                    u.setPhoneNumber(rs.getString("phone_number"));
-                    u.setDateOfBirth(rs.getDate("date_of_birth"));
-                    u.setAvatarUrl(rs.getString("avatar_url"));
-                    u.setStatus(rs.getBoolean("status"));
-                    u.setRole(rs.getBoolean("role"));
-                    u.setUpdatedAt(rs.getDate("updated_at"));
-                    u.setPassword(rs.getString("password"));
-                    u.setCreatedAt(rs.getDate("created_at"));
-                    return u;
-                });
-        return list;
-    }
-
-    @Override
-    public List<User> findByName(String name) {
-        String sql = "CALL findUserByName(?) ";
-        List<User> list = jdbcTemplate.query(sql, new Object[]{name},
                 (rs, rowNum) -> {
                     User u = new User();
                     u.setUserId(rs.getLong("user_id"));

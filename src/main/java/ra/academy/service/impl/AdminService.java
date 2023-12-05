@@ -36,9 +36,6 @@ public class AdminService implements IAdminService {
 
     @Override
     public List<User> sort(String SBN, String SBCD, String SBS) {
-//        if(!SBN.equals("ESC")){
-//            List<User> listSort =  list.stream().sorted(Comparator.comparing(User::getFullName)).collect(Collectors.toList());
-//        }
         return userService.findAllUser();
     }
 

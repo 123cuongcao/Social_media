@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IReelDao;
-import ra.academy.model.Reel;
 import ra.academy.model.User;
 
 import java.util.List;
@@ -51,8 +50,9 @@ public class ReelDao implements IReelDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 
     @Override

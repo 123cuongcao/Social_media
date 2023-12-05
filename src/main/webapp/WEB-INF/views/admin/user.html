@@ -366,7 +366,7 @@
                         <ul class="pagination float-end mx-4">
                             <li class="page-item " >
                                 <!-- Check if current_page is greater than 0, then show the "Previous" link -->
-                                <a th:if="${current_page > 0}" class="page-link" th:href="@{|?page=${(current_page)-1}&size=${size}|}">Previous</a>
+                                <a th:if="${current_page > 0}" class="page-link" th:href="@{|?page=${(current_page)-1}&size=${size}&nameFind=${nameToFind}|}">Previous</a>
                             </li>
                             <li class="page-item disabled">
                                 <a th:if="${current_page <= 0}" class="page-link" th:href="@{#}">Previous</a>
@@ -375,7 +375,7 @@
                             <th:block th:each="p,loop : ${total_page}">
                                 <li th:class="|page-item ${current_page==loop.index?'active':''}|">
                                     <a class="page-link"
-                                       th:href="@{|?page=${loop.index}&size=${size}|}"
+                                       th:href="@{|?page=${loop.index}&size=${size}&nameFind=${nameToFind}|}"
                                        th:text="${loop.count}">
                                     </a>
                                 </li>
@@ -398,7 +398,7 @@
 <!--                            </li>-->
                             <li class="page-item">
                                 <a th:if="${current_page+1 < total_page.length}" class="page-link"
-                                   th:href="@{|?page=${(current_page)+1}&size=${size}|}">Next</a>
+                                   th:href="@{|?page=${(current_page)+1}&size=${size}&nameFind=${nameToFind}|}">Next</a>
                             </li>
                             <li class="page-item disabled">
                                 <a th:if="${current_page+1 >= (total_page.length)}" class="page-link">Next</a>

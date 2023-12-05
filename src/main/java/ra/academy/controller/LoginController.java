@@ -27,12 +27,6 @@ public class LoginController {
     private LoginValidate loginValidate;
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IPostTopicService postTopicService;
-    @Autowired
-    private IPostTagUserService postTagUserService;
-    @Autowired
-    private IPostService postService;
 
 
     @RequestMapping
@@ -57,16 +51,7 @@ public class LoginController {
             return "redirect:/admin/user";
         }
         session.setAttribute("user_login", userLogin);
-        User user1 = userService.findAllUser().stream().filter(u->u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        model.addAttribute("list_post", postService.findAllPostForUser(user1.getUserId()));
-        model.addAttribute("posting_user", user1);
-        model.addAttribute("image",user1.getAvatarUrl());
-        model.addAttribute("user_post", new PostRequest());
-        model.addAttribute("post_topic", postTopicService.findTopic());
-        model.addAttribute("tag_friend", postTagUserService.fillAllFriend());
-        model.addAttribute("arrPrivacy", Privacy.values());
-        return "component/default";
-
+        return "redirect:/homepage";
     }
 
 

@@ -90,8 +90,6 @@ public class PostDao implements IPostDao {
                     callSt2.executeUpdate();
                 }
 
-
-
                 if (!postRequest.getTaggedUserIds().isEmpty()) {
                     for (Long userId : postRequest.getTaggedUserIds()) {
                         sql3 += "(" + userId + "," + newPostId + ")";
@@ -135,14 +133,35 @@ public class PostDao implements IPostDao {
     }
 
     @Override
-    public void deleteById(Long id) {
-
+    public int deleteById(Long id) {
+        String sql = "delete from post where post_id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public List<PostResponseAdmin> findAllPostForAdmin() {
-        String sql = "call proc_find_all_post_for_admin()";
+        String sql = "call proc_find_all_post()";
         List<PostResponseAdmin> list = jdbcTemplate.query(sql,
+                (rs, rowNum) -> {
+                    PostResponseAdmin post = new PostResponseAdmin();
+                    post.setPostId(rs.getLong("post_id"));
+                    post.setUserEmail(rs.getString("email"));
+                    post.setTopics(postTopicDao.findTopicsByPostId(rs.getLong("post_id")));
+                    post.setPostContent(rs.getString("content"));
+                    post.setUrls(fileUrlDao.findFileUrlsByPostId(rs.getLong("post_id")));
+                    post.setPostTime(rs.getDate("post_time"));
+                    post.setUpdateTime(rs.getDate("update_time"));
+                    post.setPostPrivacy(Privacy.valueOf(rs.getString("privacy")));
+                    post.setStatus(rs.getBoolean("status"));
+                    return post;
+                });
+        return list;
+    }
+
+    @Override
+    public List<PostResponseAdmin> findAllPostByContent(int limit, int offset, String content) {
+        String sql = "CALL proc_find_all_post_for_admin(?,?,?) ";
+        List<PostResponseAdmin> list = jdbcTemplate.query(sql, new Object[]{limit, offset, content},
                 (rs, rowNum) -> {
                     PostResponseAdmin post = new PostResponseAdmin();
                     post.setPostId(rs.getLong("post_id"));
@@ -173,12 +192,16 @@ public class PostDao implements IPostDao {
                     post.setPostTime(rs.getDate("post_time"));
                     post.setUpdateTime(rs.getDate("update_time"));
                     post.setPostPrivacy(Privacy.valueOf(rs.getString("privacy")));
-                    post.setLikeCount(rs.getInt("count_like"));
-                    post.setCommentCount(rs.getInt("count_comment"));
                     post.setTaggedUserId(postTagUserDao.findTaggedUserIdByPostId(rs.getLong("post_id")));
                     post.setStatus(rs.getBoolean("status"));
                     return post;
                 });
         return list;
+    }
+
+    @Override
+    public void changePostStatus(Long id) {
+        String sql = "update post set status = !status where post_id  = ?";
+        jdbcTemplate.update(sql, id);
     }
 }

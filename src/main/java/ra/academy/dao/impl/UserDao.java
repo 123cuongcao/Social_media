@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IUserDao;
-import ra.academy.model.Post;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
 import ra.academy.model.UserRelation;
@@ -233,8 +232,9 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public int deleteById(Long id) {
 
+        return 0;
     }
 
     @Override

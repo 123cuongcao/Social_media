@@ -3,10 +3,7 @@ package ra.academy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ra.academy.dto.PostRequest;
 import ra.academy.dto.UserLogin;
 import ra.academy.service.IPostService;
@@ -29,7 +26,15 @@ public class PostController {
     public String doPost(@ModelAttribute("user_post") PostRequest postRequest, HttpSession session) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         postService.save(postRequest, userLogin.getUserEmail());
-        return "component/default";
+        return "redirect:/homepage";
     }
+
+    @RequestMapping("/delete_post/{id}")
+    public String deletePost(@PathVariable Long id) {
+        postService.deleteById(id);
+        return "redirect:/homepage";
+    }
+
+
 
 }
