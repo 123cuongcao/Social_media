@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import java.util.Date;
 @Validated
 public class UserRegister {
+
     private String fullName;
     private String rePassword;
     private String email;
