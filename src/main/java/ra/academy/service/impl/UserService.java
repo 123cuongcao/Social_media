@@ -139,4 +139,9 @@ public class UserService implements IUserService {
     public int deleteUserRelation(long idSender, long idReceiver) {
         return userDao.deleteUserRelation(idSender, idReceiver);
     }
+
+    @Override
+    public int changePassword(long idUser, String password) {
+        return userDao.changePassword(idUser, BCrypt.hashpw(password, BCrypt.gensalt(12)));
+    }
 }

@@ -1,7 +1,8 @@
 package ra.academy.dto;
 
+import org.springframework.validation.annotation.Validated;
 import ra.academy.model.RelationshipStatus;
-
+@Validated
 public class FriendRelationReponse {
     private Long id;
     private String userName;
