@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ra.academy.dao.IUserDao;
+import ra.academy.dto.ChangePassword;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
 import ra.academy.model.UserRelation;
@@ -105,6 +106,12 @@ public class UserDao implements IUserDao {
     public int deleteUserRelation(long idSender, long idReceiver) {
         String sql = "call deleteUserRelation(?,?)";
         return jdbcTemplate.update(sql,idSender,idReceiver);
+    }
+
+    @Override
+    public int changePassword(  long idUser , String password) {
+        String sql = "call changePassword(?,?)";
+        return jdbcTemplate.update(sql,idUser,password);
     }
 
     @Override
