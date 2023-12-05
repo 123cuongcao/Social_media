@@ -24,6 +24,7 @@ public class UserController {
     private EditValidate editValidate;
     @Autowired
     private UserService userService;
+
     @RequestMapping("/setting")
     public String setting() {
         return "component/default-settings";
@@ -32,21 +33,31 @@ public class UserController {
     @RequestMapping("/information")
     public String information(HttpSession session, Model model) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+
         final UserEditInfor userByEmailToEdit = userService.findUserByEmailToEdit(userLogin.getUserEmail());
         model.addAttribute("user_edit", userByEmailToEdit);
+        model.addAttribute("image", user.getAvatarUrl());
         return "component/account-information";
     }
 
     @RequestMapping(value = "/handle_edit", method = RequestMethod.POST)
-    public String doEdit(  @ModelAttribute("user_edit") @Valid UserEditInfor userEditInfor, BindingResult bindingResult) {
+    public String doEdit(@ModelAttribute("user_edit") @Valid UserEditInfor userEditInfor, BindingResult bindingResult) {
 
-        editValidate.validate(userEditInfor,bindingResult);
+        editValidate.validate(userEditInfor, bindingResult);
         if (bindingResult.hasErrors()) {
+
             return "component/account-information";
         }
 
         userService.edit(userEditInfor);
         return "redirect:/default/information";
     }
-
+    @RequestMapping(value = "/default")
+    public String directHome(HttpSession session, Model model) {
+        UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+        model.addAttribute("image", user.getAvatarUrl());
+        return "component/default";
+    }
 }

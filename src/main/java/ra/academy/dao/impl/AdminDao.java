@@ -104,4 +104,9 @@ public class AdminDao implements IAdminDao {
     public int save(User user) {
         return 0;
     }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
 }

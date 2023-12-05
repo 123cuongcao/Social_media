@@ -193,3 +193,54 @@ begin
     select * from User where user_id = u_id;
 end //
     delimiter;
+
+create
+    definer = root@localhost procedure EditUser(IN u_full_name varchar(100), IN u_email varchar(100),
+                                                IN u_avatar_url text, IN u_date_of_birth date,
+                                                IN u_phone_number varchar(11))
+begin
+    update User
+    set full_name     = u_full_name,
+        email         = u_email,
+        avatar_url = COALESCE(u_avatar_url, avatar_url),
+        date_of_birth = u_date_of_birth,
+        phone_number  = u_phone_number,
+        updated_at    = now()
+
+    where email = u_email;
+end;
+
+create
+    definer = root@localhost procedure findUserByName(IN u_limit int, IN u_offset int, IN name varchar(255))
+begin
+    SELECT * FROM user
+    WHERE user.full_name LIKE concat( '%',name,'%')
+    LIMIT u_limit
+        OFFSET u_offset;
+end;
+
+create
+    definer = root@localhost procedure banOrUnban(IN u_user_id mediumtext)
+begin
+    declare current_status bit;
+
+    select status into current_status from user where user_id = u_user_id;
+
+    if current_status = 1 THEN
+        update user set status = 0 where user_id = u_user_id;
+    else
+        update user set status = 1 where user_id = u_user_id;
+    end if;
+end;
+
+use social_media;
+delimiter //
+create procedure addReel(
+    userId bigint,
+    reelImg text,
+    out idReel bigint
+)
+begin
+    insert into reel (user_id , reel_url) values (userId, reelImg );
+end //
+delimiter ;

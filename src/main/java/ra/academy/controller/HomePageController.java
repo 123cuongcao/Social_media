@@ -16,12 +16,21 @@ import javax.servlet.http.HttpSession;
 public class HomePageController {
     @Autowired
     private IUserService userService;
+
     @RequestMapping("/setting")
     public String setting(HttpSession session, Model model) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        model.addAttribute("image",user.getAvatarUrl());
+        model.addAttribute("image", user.getAvatarUrl());
         return "component/default-settings";
+    }
+
+    @RequestMapping(value = "/default")
+    public String directHome(HttpSession session, Model model) {
+        UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+        model.addAttribute("image", user.getAvatarUrl());
+        return "component/default";
     }
 
     @RequestMapping(value = "/poststory")
@@ -29,6 +38,4 @@ public class HomePageController {
         return "component/postStory";
     }
 
-//    @RequestMapping("/addNewFile")
-//    public String doReel() {}
 }
