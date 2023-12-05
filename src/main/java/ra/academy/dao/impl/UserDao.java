@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ra.academy.dao.IUserDao;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
+import ra.academy.model.UserRelation;
 
 import java.util.List;
 
@@ -99,6 +100,29 @@ public class UserDao implements IUserDao {
         String sql = "call create_user_relation(?,?,?)";
         return jdbcTemplate.update(sql,idSender,idReceiver,status);
     }
+
+    @Override
+    public int deleteUserRelation(long idSender, long idReceiver) {
+        String sql = "call deleteUserRelation(?,?)";
+        return jdbcTemplate.update(sql,idSender,idReceiver);
+    }
+
+    @Override
+    public UserRelation getUserRelation(long idSender, long idReceiver) {
+       String sql = "call GetUserRelations(?,?)";
+        return jdbcTemplate.query(sql, new Object[]{idSender,idReceiver},rs -> {
+            UserRelation u = null;
+            if (rs.next()) {
+                u = new UserRelation();
+               u.setId(rs.getLong("id"));
+               u.setSenderID(rs.getLong("sender_id"));
+               u.setReceiverId((rs.getLong("receiver_id")));
+               u.setStatus(RelationshipStatus.valueOf(rs.getString("status")));
+            }
+            return u;
+        });
+    }
+
     @Override
     public List<User> findNotFriend(long currentIdUser) {
         String sql = "call get_not_friend(?)";

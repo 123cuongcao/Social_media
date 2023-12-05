@@ -10,6 +10,7 @@ import ra.academy.dto.UserLogin;
 import ra.academy.dto.UserRegister;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
+import ra.academy.model.UserRelation;
 import ra.academy.service.IUserService;
 
 import java.util.List;
@@ -30,35 +31,45 @@ public class UserService implements IUserService {
             imageUrl = uploadService.uploadFile(userEditInfor.getAvatarUrl());
         }
         User user = new User(
-                 userEditInfor.getFullName(), userEditInfor.getEmail(),
+                userEditInfor.getFullName(), userEditInfor.getEmail(),
                 userEditInfor.getPhoneNumber(), imageUrl,
                 userEditInfor.getDateOfBirth());
         userDao.edit(user);
     }
 
     @Override
+    public long findUserByUserEmail(String email) {
+        return findAllUser().stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null).getUserId();
+    }
+
+    @Override
     public UserEditInfor findUserByEmailToEdit(String email) {
-        User user = findAllUser().stream().filter(u->u.getEmail().equals(email)).findFirst().orElse(null);
+        User user = findAllUser().stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
 
         return new UserEditInfor(
-                user.getFullName(),user.getEmail(),user.getPhoneNumber(),user.getDateOfBirth(),user.getAvatarUrl()
+                user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getDateOfBirth(), user.getAvatarUrl()
         );
     }
 
     @Override
     public List<User> findNotFriend(long currentUserId) {
-         return userDao.findNotFriend(currentUserId);
+        return userDao.findNotFriend(currentUserId);
 
     }
 
     @Override
     public List<User> findSentPendingFriendRequests(long currentUserId) {
-       return userDao.findSentPendingFriendRequests(currentUserId);
+        return userDao.findSentPendingFriendRequests(currentUserId);
+    }
+
+    @Override
+    public UserRelation getUserRelation(long idSender, long idReceiver) {
+        return userDao.getUserRelation(idSender, idReceiver);
     }
 
     @Override
     public List<User> findAllFriend(long currentIdUser) {
-       return userDao.findAllFriend(currentIdUser);
+        return userDao.findAllFriend(currentIdUser);
     }
 
     @Override
@@ -68,13 +79,13 @@ public class UserService implements IUserService {
 
     @Override
     public int changUserRelation(long idSender, long idReceiver, RelationshipStatus status) {
-        return userDao.changeUserRelation(idSender,idReceiver,status.toString());
+        return userDao.changeUserRelation(idSender, idReceiver, status.toString());
     }
 
 
     @Override
     public int doAddFriend(long idSender, long idReceiver, RelationshipStatus status) {
-        return userDao.addUserRelation(idSender,idReceiver,status.toString());
+        return userDao.addUserRelation(idSender, idReceiver, status.toString());
 
     }
 
@@ -122,5 +133,10 @@ public class UserService implements IUserService {
     @Override
     public void save(UserRegister userRegister) {
 
+    }
+
+    @Override
+    public int deleteUserRelation(long idSender, long idReceiver) {
+        return userDao.deleteUserRelation(idSender, idReceiver);
     }
 }

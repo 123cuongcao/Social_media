@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ra.academy.dto.UserLogin;
 import ra.academy.model.RelationshipStatus;
 import ra.academy.model.User;
+import ra.academy.model.UserRelation;
 import ra.academy.service.IAdminService;
 import ra.academy.service.IUserService;
 
@@ -25,7 +26,7 @@ public class FriendController {
     private IUserService userService;
 
     @RequestMapping("/{SC}")
-    public String suggestFriend(Model model, HttpSession session, @PathVariable String SC ) {
+    public String suggestFriend(Model model, HttpSession session, @PathVariable String SC) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
         List<User> users = userService.findNotFriend(user.getUserId());
@@ -65,24 +66,64 @@ public class FriendController {
     public String doAccept(@PathVariable("id") long id, HttpSession session) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        userService.changUserRelation(id,user.getUserId(), RelationshipStatus.FRIEND);
+        userService.changUserRelation(id, user.getUserId(), RelationshipStatus.FRIEND);
         return "redirect:/friend/SF";
     }
 
     @RequestMapping("/reject/{id}")
-    public String doReject(@PathVariable("id") long id, HttpSession session){
+    public String doReject(@PathVariable("id") long id, HttpSession session) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        userService.changUserRelation(id,user.getUserId(),RelationshipStatus.REJECTED);
-        return"redirect:/friend/SF";
+        userService.changUserRelation(id, user.getUserId(), RelationshipStatus.REJECTED);
+        return "redirect:/friend/SF";
     }
+
     @RequestMapping("/cancel/{id}")
-    public String doCancel(@PathVariable("id") long id, HttpSession session){
+    public String doCancel(@PathVariable("id") long id, HttpSession session) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
-        userService.changUserRelation(user.getUserId(),id,RelationshipStatus.CANCELED);
-        return"redirect:/friend/SF";
+        userService.changUserRelation(user.getUserId(), id, RelationshipStatus.CANCELED);
+        return "redirect:/friend/SF";
     }
+
+    @RequestMapping("/detail/{id}")
+    public String goToUserPage(@PathVariable("id") long id, Model model, HttpSession session) {
+        UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        User currentLogin = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+        User user = userService.findAllUser().stream().filter(u -> u.getUserId() == id).findFirst().orElse(null);
+        RelationshipStatus status ;
+        model.addAttribute("user", user);
+
+        UserRelation userRelation = userService.getUserRelation(currentLogin.getUserId(), id);
+        if(userRelation == null){
+            model.addAttribute("status", "");
+            return "component/user-page";
+        }
+        status = userRelation.getStatus();
+        if (userRelation.getSenderID() == currentLogin.getUserId() && status.toString().equals("PENDING")) {
+            model.addAttribute("status", "CR");
+        } else if (userRelation.getReceiverId() == currentLogin.getUserId() && status.toString().equals("PENDING")) {
+            model.addAttribute("status", "AR");
+        } else if (id == currentLogin.getUserId()) {
+            model.addAttribute("status", "currentUser");
+        } else {
+            model.addAttribute("status", userRelation.getStatus().toString());
+        }
+
+
+        return "component/user-page";
+    }
+
+    @RequestMapping("/unfriend/{id}")
+    public String doUnFriend(@PathVariable("id") long id ,HttpSession session){
+        UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+       if( userService.deleteUserRelation(user.getUserId(), id) ==0){
+           userService.deleteUserRelation(id,user.getUserId());
+       }
+        return "redirect:/friend/SF";
+    }
+
 
 
 

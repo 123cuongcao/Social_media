@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SCC - Information </title>
 
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/feather.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <link rel="stylesheet" href="/css/feather.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/icon" href="/img/Logo/s DOUBLE C..png">
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/lightbox.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/lightbox.css">
 
 </head>
 
@@ -267,19 +267,29 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card w-100 border-0 p-0 bg-white shadow-xss rounded-xxl">
-                            <div class="card-body h250 p-0 rounded-xxl overflow-hidden m-3"><img
-                                    src="https://via.placeholder.com/960x250.png" alt="image"></div>
+                            <div style="max-height: 350px" class="card-body w-960 h-350 p-0 rounded-xxl overflow-hidden m-3">
+                                <img
+                                 style="width: 100%"  th:src="${user.avatarUrl}" alt="image"></div>
                             <div class="card-body p-0 position-relative">
                                 <figure class="avatar position-absolute w100 z-index-1" style="top:-40px; left: 30px;">
-                                    <img src="https://via.placeholder.com/50x50.png" alt="image"
+                                    <img th:src="${user.avatarUrl}" alt="image"
                                          class="float-right p-1 bg-white rounded-circle w-100"></figure>
-                                <h4 class="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15">Mohannad Zitoun <span
-                                        class="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block">support@gmail.com</span>
+                                <h4 class="fw-700 font-sm mt-2 mb-lg-5 mb-4 pl-15" th:text="${user.fullName}"> <span
+                                        class="fw-500 font-xssss text-grey-500 mt-1 mb-3 d-block" th:text="${user.email}">support@gmail.com</span>
                                 </h4>
                                 <div class="d-flex align-items-center justify-content-center position-absolute-md right-15 top-0 me-2">
-                                    <a href="#"
+                                    <a th:if="${status=='CR'}" th:href="@{/friend/cancel/{id}(id=${user.userId})}"
+                                       class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Cancel Request</a>
+                                    <a th:if="${status=='AR'}" th:href="@{/friend/accept/{id}(id=${user.userId})}"
+                                       class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Accept</a>
+
+                                    <a th:if="${status == ''  }" th:href="@{/friend/addFriend/{id}(id=${user.userId})}"
                                        class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Add
                                         Friend</a>
+                                    <a th:if="${status =='FRIEND'}" th:href="@{/friend/unfriend/{id}(id=${user.userId})}"
+                                       class="d-none d-lg-block bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">Unfriend</a>
+
+                                    <th:block th:if="${status=='currentUser'}"></th:block>
                                     <a href="#"
                                        class="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700"><i
                                             class="feather-mail font-md"></i></a>
@@ -1134,10 +1144,10 @@
 </div>
 
 
-<script src="js/plugin.js"></script>
-<script src="js/lightbox.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/jquery.easypiechart.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/lightbox.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/jquery.easypiechart.min.js"></script>
 <script>
     $('.chart').easyPieChart({
         easing: 'easeOutElastic',
