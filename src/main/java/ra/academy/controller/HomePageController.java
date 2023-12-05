@@ -36,7 +36,7 @@ public class HomePageController {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
         model.addAttribute("image", user.getAvatarUrl());
-        return "component/default-settings";
+        return  "component/default-settings";
     }
 
     @RequestMapping(value = "/default")

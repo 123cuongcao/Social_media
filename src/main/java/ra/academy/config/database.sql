@@ -244,3 +244,139 @@ begin
     insert into reel (user_id , reel_url) values (userId, reelImg );
 end //
 delimiter ;
+
+use social_media;
+create table user_relation
+(
+    id          bigint primary key auto_increment,
+    sender_id   bigint,
+    foreign key (sender_id) references user (user_id),
+    receiver_id bigint,
+    foreign key (receiver_id) references user (user_id),
+    status enum('PENDING', 'ACCEPTED', 'REJECTED', 'BLOCK', 'FRIEND', 'CANCELED')
+
+);
+
+create
+    definer = root@localhost procedure get_not_friend(IN in_currentUserId bigint)
+BEGIN
+    SELECT u.*
+    FROM user u
+    WHERE u.user_id not IN (SELECT DISTINCT CASE
+                                                WHEN status = 'BLOCK' AND sender_id = in_currentUserId THEN receiver_id
+                                                WHEN status = 'BLOCK' AND receiver_id = in_currentUserId THEN sender_id
+                                                WHEN status = 'PENDING' AND sender_id = in_currentUserId
+                                                    THEN receiver_id
+                                                WHEN status = 'PENDING' AND receiver_id = in_currentUserId
+                                                    THEN sender_id
+                                                WHEN status = 'FRIEND' AND sender_id = in_currentUserId THEN receiver_id
+                                                WHEN status = 'FRIEND' AND receiver_id = in_currentUserId THEN sender_id
+                                                ELSE NULL
+                                                END
+                            FROM user_relation
+                            WHERE (status IN ('BLOCK', 'PENDING', 'FRIEND') AND
+                                   (sender_id = in_currentUserId OR receiver_id = in_currentUserId)))
+      AND u.user_id != in_currentUserId;
+END;
+create
+    definer = root@localhost procedure getRequestFriendFromUser(IN currentId mediumtext)
+begin
+    SELECT u.*
+    FROM user u
+    WHERE u.user_id IN (
+        SELECT DISTINCT sender_id
+        FROM user_relation
+        WHERE receiver_id = currentId AND status = 'PENDING'
+    );
+end;
+create
+    definer = root@localhost procedure getRequestFriendFromUser(IN currentId mediumtext)
+begin
+    SELECT u.*
+    FROM user u
+    WHERE u.user_id IN (
+        SELECT DISTINCT sender_id
+        FROM user_relation
+        WHERE receiver_id = currentId AND status = 'PENDING'
+    );
+end;
+create
+    definer = root@localhost procedure GetUserRelations(IN in_idSender bigint, IN in_idReceiver bigint)
+BEGIN
+    SELECT *
+    FROM user_relation
+    WHERE (sender_id = in_idSender AND receiver_id = in_idReceiver)
+       OR (sender_id = in_idReceiver AND receiver_id = in_idSender);
+END;
+create
+    definer = root@localhost procedure create_user_relation(IN in_sender_id bigint, IN in_receiver_id bigint,
+                                                            IN in_status enum ('PENDING', 'ACCEPTED', 'REJECTED', 'CANCELED', 'BLOCK', 'FRIEND'))
+begin
+    insert into  user_relation (sender_id, receiver_id, status)
+    values (in_sender_id, in_receiver_id, in_status);
+end;
+
+create
+    definer = root@localhost procedure GetSentPendingFriendRequests(IN in_currentUserId bigint)
+BEGIN
+    SELECT u.*
+    FROM user u
+    WHERE u.user_id IN (
+        SELECT DISTINCT receiver_id
+        FROM user_relation
+        WHERE sender_id = in_currentUserId AND status = 'PENDING'
+    );
+END;
+create
+    definer = root@localhost procedure change_user_relation(IN in_sender_id bigint, IN in_receiver_id bigint,
+                                                            IN in_status enum ('PENDING', 'ACCEPTED', 'REJECTED', 'BLOCK', 'FRIEND', 'CANCELED'))
+begin
+    UPDATE user_relation
+    SET status = in_status
+    WHERE sender_id = in_sender_id AND receiver_id = in_receiver_id;
+
+end;
+create
+    definer = root@localhost procedure getAllFriend(IN in_currentUserId bigint)
+begin
+    select u.* from user u where u.user_id in (
+        select distinct sender_id from user_relation where sender_id = in_currentUserId
+    )  and u.user_id != in_currentUserId;
+end;
+
+create
+    definer = root@localhost procedure GetAllFriends(IN in_currentUserId bigint)
+BEGIN
+    SELECT u.*
+    FROM user u
+             JOIN user_relation ur ON (u.user_id = ur.sender_id OR u.user_id = ur.receiver_id)
+    WHERE ur.status = 'FRIEND' AND (ur.sender_id = in_currentUserId OR ur.receiver_id = in_currentUserId) AND u.user_id != in_currentUserId;
+END;
+drop procedure get_not_friend;
+
+create
+    definer = root@localhost procedure get_not_friend(IN in_currentUserId bigint)
+BEGIN
+    SELECT u.*
+    FROM user u
+    WHERE u.user_id not IN (
+        SELECT DISTINCT CASE
+                            WHEN status = 'BLOCK' AND sender_id = in_currentUserId THEN receiver_id
+                            WHEN status = 'BLOCK' AND receiver_id = in_currentUserId THEN sender_id
+                            WHEN status = 'PENDING' AND sender_id = in_currentUserId THEN receiver_id
+                            WHEN status = 'PENDING' AND receiver_id = in_currentUserId THEN sender_id
+                            WHEN status = 'FRIEND' AND sender_id = in_currentUserId THEN receiver_id
+                            WHEN status = 'FRIEND' AND receiver_id = in_currentUserId THEN sender_id
+                            WHEN status = 'CANCELED' AND sender_id = in_currentUserId THEN receiver_id
+                            WHEN status = 'CANCELED' AND receiver_id = in_currentUserId THEN sender_id
+                            ELSE NULL
+                            END
+        FROM user_relation
+        WHERE (status IN ('BLOCK', 'PENDING', 'FRIEND') AND (sender_id = in_currentUserId OR receiver_id = in_currentUserId))
+    ) AND u.user_id != in_currentUserId;
+END;
+create
+    definer = root@localhost procedure deleteUserRelation(IN idSender bigint, IN idReceiver bigint)
+begin
+    delete from user_relation where sender_id = idSender and receiver_id = idReceiver;
+end;

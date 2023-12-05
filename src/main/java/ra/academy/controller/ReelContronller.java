@@ -52,7 +52,7 @@ public class ReelContronller {
     }
     @RequestMapping("/home")
     public String homepage() {
-        return "redirect:/component/defautl/default";
+        return "redirect:/component/defautl/";
     }
 
 }

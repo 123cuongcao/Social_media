@@ -110,8 +110,4 @@ public class AdminDao implements IAdminDao {
         return 0;
     }
 
-    @Override
-    public void deleteById(Long id) {
-
-    }
 }
