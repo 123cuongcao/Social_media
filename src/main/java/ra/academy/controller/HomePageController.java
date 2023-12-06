@@ -88,7 +88,11 @@ public class HomePageController {
 
     @RequestMapping(value = "/poststory")
     public String addstory() {
+
         return "component/postStory";
     }
+
+
+
 
 }

@@ -50,6 +50,10 @@ public class LoginController {
             session.setAttribute("user_login", userLogin);
             return "redirect:/admin/user";
         }
+        if(!user.isStatus()){
+            model.addAttribute("user_ban","Your account has been banned");
+            return "component/login";
+        }
         session.setAttribute("user_login", userLogin);
         return "redirect:/homepage";
     }

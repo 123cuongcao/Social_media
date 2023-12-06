@@ -57,7 +57,7 @@ public class FriendController {
     @RequestMapping("/addFriend/{id}")
     public String doDoAddFriend(@PathVariable("id") long idReceiver, HttpSession session, Model model) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
-        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
+        User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail()) ).findFirst().orElse(null);
         userService.doAddFriend(user.getUserId(), idReceiver, RelationshipStatus.PENDING);
         return "redirect:/friend/SF";
     }
@@ -123,6 +123,8 @@ public class FriendController {
        }
         return "redirect:/friend/SF";
     }
+
+
 
 
 

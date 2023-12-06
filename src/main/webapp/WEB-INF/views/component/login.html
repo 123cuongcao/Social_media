@@ -65,15 +65,19 @@
 
                             <i class="font-sm ti-email text-grey-500 pe-0"></i>
                             <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                   placeholder="Your Email Address" th:field="*{userEmail}" >
-                            <p class="form-text text-danger" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}"></p>
+                                   placeholder="Your Email Address" th:field="*{userEmail}">
+                            <p class="form-text text-danger" th:if="${#fields.hasErrors('userEmail')}"
+                               th:errors="*{userEmail}"></p>
                         </div>
                         <div class="form-group icon-input mb-1">
                             <input type="password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
                                    placeholder="Password" th:field="*{password}">
                             <i class="font-sm ti-lock text-grey-500 pe-0"></i>
-                            <p class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                            <p class="text-danger" th:if="${login_fail!=null}" th:text="${login_fail}"></p>
+                            <p class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}"></div>
+                        <p class="text-danger" th:if="${login_fail!=null}" th:text="${login_fail}"></p>
+                        <p class="text-danger" th:if="${user_ban!=null}" th:text="${user_ban}"></p>
+
                         <div class="form-check text-left mb-3">
                             <input type="checkbox" class="form-check-input mt-2" id="exampleCheck2">
                             <label class="form-check-label font-xsss text-grey-500" for="exampleCheck2">Remember
@@ -83,8 +87,11 @@
                         </div>
 
                         <div class="col-sm-12 p-0 text-left">
-                            <div class="form-group mb-1"><button type="submit"
-                                                            class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button>
+                            <div class="form-group mb-1">
+                                <button type="submit"
+                                        class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">
+                                    Login
+                                </button>
                             </div>
                             <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a
                                     href="/register" class="fw-700 ms-1">Register</a></h6>
@@ -96,8 +103,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <script src="/js/plugin.js"></script>

@@ -32,6 +32,8 @@ public class ReelContronller {
     private IUserService userService;
     @Autowired
     private UploadService uploadService;
+    @Autowired
+    private HttpSession session;
 
 
     @RequestMapping("/handle_addStory")
@@ -50,6 +52,8 @@ public class ReelContronller {
         model.addAttribute("reel",reel);
         return "component/default-stories";
     }
+
+
     @RequestMapping("/home")
     public String homepage() {
         return "redirect:/component/defautl/";

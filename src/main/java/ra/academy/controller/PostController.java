@@ -28,12 +28,20 @@ public class PostController {
         postService.save(postRequest, userLogin.getUserEmail());
         return "redirect:/homepage";
     }
+    @PostMapping("/handle-post1")
+    public String doPost1(@ModelAttribute("user_post") PostRequest postRequest, HttpSession session) {
+        UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
+        postService.save(postRequest, userLogin.getUserEmail());
+        return "redirect:/homepage/profile";
+    }
 
     @RequestMapping("/delete_post/{id}")
     public String deletePost(@PathVariable Long id) {
         postService.deleteById(id);
         return "redirect:/homepage";
     }
+
+
 
 
 

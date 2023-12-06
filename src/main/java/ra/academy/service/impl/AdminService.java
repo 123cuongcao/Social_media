@@ -21,12 +21,13 @@ public class AdminService implements IAdminService {
 
     @Override
     public long getTotalPage(int size,String search) {
-        long count = adminDao.findAll().stream().filter(u->u.getFullName().contains(search)).count();
+        long count = adminDao.findAll().stream().filter(u->u.getFullName().contains(search)&& !u.isRole()).count();
         if (count % size == 0) {
             return count / size;
         }
         return count / size + 1;
     }
+
 
     @Override
     public List<User> findAll(int page, int size) {

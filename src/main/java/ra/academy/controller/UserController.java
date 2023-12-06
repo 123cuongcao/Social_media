@@ -18,17 +18,12 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/default")
+@RequestMapping("/homepage")
 public class UserController {
     @Autowired
     private EditValidate editValidate;
     @Autowired
     private UserService userService;
-
-    @RequestMapping("/setting")
-    public String setting() {
-        return "component/default-settings";
-    }
 
     @RequestMapping("/information")
     public String information(HttpSession session, Model model) {
@@ -51,9 +46,9 @@ public class UserController {
         }
 
         userService.edit(userEditInfor);
-        return "redirect:/default/information";
+        return "redirect:/homepage/information";
     }
-    @RequestMapping(value = "/default")
+    @RequestMapping(value = "/homa")
     public String directHome(HttpSession session, Model model) {
         UserLogin userLogin = (UserLogin) session.getAttribute("user_login");
         User user = userService.findAllUser().stream().filter(u -> u.getEmail().equalsIgnoreCase(userLogin.getUserEmail())).findFirst().orElse(null);
