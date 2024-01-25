@@ -80,11 +80,13 @@ public class AdminController {
         return "component/default";
     }
 
+
     @RequestMapping("/doBanOrUnban/{id}")
     public String doBan(@PathVariable Long id) {
         adminService.banUserOrUnban(id);
         return "redirect:/admin/user";
     }
+
 
     @RequestMapping("/ban_unban_post/{id}")
     public String banPost(@PathVariable Long id) {
